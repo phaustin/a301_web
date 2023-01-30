@@ -1,0 +1,21 @@
+Module functions
+----------------
+
+
+rad_lib contents                  
+================
+
+.. currentmodule:: rad_lib.radiation
+
+.. autosummary:: rad_lib.radiation
+
+   calc_radiance
+   
+sat_lib contents
+================
+
+.. currentmodule:: sat_lib.modismeta_read
+
+.. autosummary:: sat_lib.modismeta_read
+
+   parseMeta
