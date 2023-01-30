@@ -12,4 +12,29 @@ A301 module documentation
 
    full_listing.rst
 
+A301 command line programs
+==========================
+
+
+------
+
+.. click:: sat_lib.modismeta_read:main
+   :nested:
+   :prog: meta_read
+
+.. raw:: html
+
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
+   <br />
 
