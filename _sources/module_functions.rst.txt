@@ -9,6 +9,7 @@ rad_lib contents
 
 .. autosummary:: rad_lib.radiation
 
+   Elambda              
    calc_radiance
    
 sat_lib contents
