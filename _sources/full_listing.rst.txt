@@ -12,5 +12,5 @@ satellite full module
 =====================
 
 .. automodule:: sat_lib
-   :members:             
+   :members: modismeta_read, modis_chans            
 
