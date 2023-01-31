@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sat_lib.modismeta_read &#8212; A301</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2023Jan29</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#rad-lib-contents">rad_lib contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#sat-lib-contents">sat_lib contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#modismeta-read">modismeta_read</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for sat_lib.modismeta_read</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  modismeta_read </span>
+<span class="sd">  ______________</span>
+
+<span class="sd">  parses a Modis Level1b CoreMetata.0 string and extracts</span>
+<span class="sd">  a dictionary. </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">import</span> <span class="nn">pdb</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">types</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pyhdf.SD</span> <span class="kn">import</span> <span class="n">SD</span>
+<span class="kn">from</span> <span class="nn">pyhdf.SD</span> <span class="kn">import</span> <span class="n">SDC</span>
+
+<div class="viewcode-block" id="get_core"><a class="viewcode-back" href="../../full_listing.html#sat_lib.modismeta_read.get_core">[docs]</a><span class="k">def</span> <span class="nf">get_core</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    given the path to a Modis hdf4 file with a &quot;CoreMetadata.0&quot; attribute</span>
+<span class="sd">    return that value as a string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">the_file</span> <span class="o">=</span> <span class="n">SD</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">SDC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+    <span class="n">metaDat</span> <span class="o">=</span> <span class="n">the_file</span><span class="o">.</span><span class="n">attributes</span><span class="p">()[</span><span class="s2">&quot;CoreMetadata.0&quot;</span><span class="p">]</span>
+    <span class="n">core_meta</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">metaDat</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot; </span><span class="se">\t\r\n\0</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">the_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">core_meta</span></div>
+
+
+<span class="c1"># from https://github.com/pytroll/satpy/blob/master/satpy/readers/modis_l1b.py</span>
+<span class="k">def</span> <span class="nf">read_mda</span><span class="p">(</span><span class="n">attribute</span><span class="p">):</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">attribute</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">mda</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">current_dict</span> <span class="o">=</span> <span class="n">mda</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;END&quot;</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">NameError</span><span class="p">,</span> <span class="ne">SyntaxError</span><span class="p">,</span> <span class="ne">ValueError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;GROUP&quot;</span><span class="p">,</span> <span class="s2">&quot;OBJECT&quot;</span><span class="p">]:</span>
+            <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="n">current_dict</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_dict</span>
+            <span class="n">current_dict</span> <span class="o">=</span> <span class="n">new_dict</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;END_GROUP&quot;</span><span class="p">,</span> <span class="s2">&quot;END_OBJECT&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="n">path</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="ne">SyntaxError</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">current_dict</span> <span class="o">=</span> <span class="n">mda</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+                <span class="n">current_dict</span> <span class="o">=</span> <span class="n">current_dict</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;CLASS&quot;</span><span class="p">,</span> <span class="s2">&quot;NUM_VAL&quot;</span><span class="p">]:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="k">return</span> <span class="n">mda</span>
+
+
+<span class="k">class</span> <span class="nc">metaParse</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metaDat</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">re</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">metaDat</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">metaDat</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot; </span><span class="se">\t\r\n\0</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span> <span class="o">=</span> <span class="n">read_mda</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metaDat</span><span class="p">)</span>
+        <span class="n">the_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span><span class="p">[</span><span class="s2">&quot;INVENTORYMETADATA&quot;</span><span class="p">]</span>
+        <span class="n">product</span> <span class="o">=</span> <span class="n">the_dict</span><span class="p">[</span><span class="s2">&quot;COLLECTIONDESCRIPTIONCLASS&quot;</span><span class="p">][</span><span class="s2">&quot;SHORTNAME&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+        <span class="n">L2</span> <span class="o">=</span> <span class="n">product</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;L2&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">L2</span><span class="p">:</span>
+            <span class="n">rectangle</span> <span class="o">=</span> <span class="n">the_dict</span><span class="p">[</span><span class="s2">&quot;SPATIALDOMAINCONTAINER&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;HORIZONTALSPATIALDOMAINCONTAINER&quot;</span>
+            <span class="p">][</span><span class="s2">&quot;BOUNDINGRECTANGLE&quot;</span><span class="p">]</span>
+            <span class="n">left_lon</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">[</span><span class="s2">&quot;WESTBOUNDINGCOORDINATE&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+            <span class="n">right_lon</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">[</span><span class="s2">&quot;EASTBOUNDINGCOORDINATE&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+            <span class="n">top_lat</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">[</span><span class="s2">&quot;NORTHBOUNDINGCOORDINATE&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+            <span class="n">bot_lat</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">[</span><span class="s2">&quot;SOUTHBOUNDINGCOORDINATE&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+            <span class="n">theLongs</span> <span class="o">=</span> <span class="p">[</span><span class="n">right_lon</span><span class="p">,</span> <span class="n">left_lon</span><span class="p">,</span> <span class="n">left_lon</span><span class="p">,</span> <span class="n">right_lon</span><span class="p">]</span>
+            <span class="n">theLats</span> <span class="o">=</span> <span class="p">[</span><span class="n">bot_lat</span><span class="p">,</span> <span class="n">bot_lat</span><span class="p">,</span> <span class="n">top_lat</span><span class="p">,</span> <span class="n">top_lat</span><span class="p">]</span>  <span class="c1"># ccw from lower right</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># pdb.set_trace()</span>
+            <span class="n">theLongs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span><span class="p">[</span><span class="s2">&quot;INVENTORYMETADATA&quot;</span><span class="p">][</span><span class="s2">&quot;SPATIALDOMAINCONTAINER&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;HORIZONTALSPATIALDOMAINCONTAINER&quot;</span>
+            <span class="p">][</span><span class="s2">&quot;GPOLYGON&quot;</span><span class="p">][</span><span class="s2">&quot;GPOLYGONCONTAINER&quot;</span><span class="p">][</span><span class="s2">&quot;GRINGPOINT&quot;</span><span class="p">][</span><span class="s2">&quot;GRINGPOINTLONGITUDE&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;VALUE&quot;</span>
+            <span class="p">]</span>
+            <span class="n">theLats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span><span class="p">[</span><span class="s2">&quot;INVENTORYMETADATA&quot;</span><span class="p">][</span><span class="s2">&quot;SPATIALDOMAINCONTAINER&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;HORIZONTALSPATIALDOMAINCONTAINER&quot;</span>
+            <span class="p">][</span><span class="s2">&quot;GPOLYGON&quot;</span><span class="p">][</span><span class="s2">&quot;GPOLYGONCONTAINER&quot;</span><span class="p">][</span><span class="s2">&quot;GRINGPOINT&quot;</span><span class="p">][</span><span class="s2">&quot;GRINGPOINTLATITUDE&quot;</span><span class="p">][</span>
+                <span class="s2">&quot;VALUE&quot;</span>
+            <span class="p">]</span>
+        <span class="n">lon_list</span><span class="p">,</span> <span class="n">lat_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">theLongs</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">theLats</span><span class="p">)</span>
+        <span class="n">min_lat</span><span class="p">,</span> <span class="n">max_lat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lat_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lat_list</span><span class="p">)</span>
+        <span class="n">min_lon</span><span class="p">,</span> <span class="n">max_lon</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">lon_list</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">lon_list</span><span class="p">)</span>
+        <span class="n">lon_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_lon</span> <span class="o">+</span> <span class="n">min_lon</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="n">lat_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_lat</span> <span class="o">+</span> <span class="n">min_lat</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="n">lon_list</span><span class="p">,</span> <span class="n">lat_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lon_list</span><span class="p">),</span> <span class="nb">list</span><span class="p">(</span><span class="n">lat_list</span><span class="p">)</span>
+        <span class="n">corner_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">lon_list</span><span class="o">=</span><span class="n">lon_list</span><span class="p">,</span>
+            <span class="n">lat_list</span><span class="o">=</span><span class="n">lat_list</span><span class="p">,</span>
+            <span class="n">min_lat</span><span class="o">=</span><span class="n">min_lat</span><span class="p">,</span>
+            <span class="n">max_lat</span><span class="o">=</span><span class="n">max_lat</span><span class="p">,</span>
+            <span class="n">min_lon</span><span class="o">=</span><span class="n">min_lon</span><span class="p">,</span>
+            <span class="n">max_lon</span><span class="o">=</span><span class="n">max_lon</span><span class="p">,</span>
+            <span class="n">lon_0</span><span class="o">=</span><span class="n">lon_0</span><span class="p">,</span>
+            <span class="n">lat_0</span><span class="o">=</span><span class="n">lat_0</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value1</span> <span class="o">=</span> <span class="n">corner_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span><span class="p">[</span><span class="s2">&quot;INVENTORYMETADATA&quot;</span><span class="p">][</span>
+            <span class="s2">&quot;ORBITCALCULATEDSPATIALDOMAIN&quot;</span>
+        <span class="p">][</span><span class="s2">&quot;ORBITCALCULATEDSPATIALDOMAINCONTAINER&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value3</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span><span class="p">[</span><span class="s2">&quot;INVENTORYMETADATA&quot;</span><span class="p">][</span><span class="s2">&quot;ECSDATAGRANULE&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value4</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span><span class="p">[</span><span class="s2">&quot;INVENTORYMETADATA&quot;</span><span class="p">][</span><span class="s2">&quot;RANGEDATETIME&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value5</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span><span class="p">[</span><span class="s2">&quot;INVENTORYMETADATA&quot;</span><span class="p">][</span><span class="s2">&quot;COLLECTIONDESCRIPTIONCLASS&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value6</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">meta_dict</span><span class="p">[</span><span class="s2">&quot;INVENTORYMETADATA&quot;</span><span class="p">][</span>
+            <span class="s2">&quot;ASSOCIATEDPLATFORMINSTRUMENTSENSOR&quot;</span>
+        <span class="p">][</span><span class="s2">&quot;ASSOCIATEDPLATFORMINSTRUMENTSENSORCONTAINER&quot;</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="parseMeta"><a class="viewcode-back" href="../../full_listing.html#sat_lib.modismeta_read.parseMeta">[docs]</a><span class="k">def</span> <span class="nf">parseMeta</span><span class="p">(</span><span class="n">meta_source</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read useful information from a CoreMetata.0 attribute</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    meta_source: str or Path object to file or string with metadata</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    </span>
+<span class="sd">    outDict: dict</span>
+<span class="sd">        key, value:</span>
+
+<span class="sd">    lat_list: np.array</span>
+<span class="sd">        4 corner latitudes</span>
+<span class="sd">    lon_list: np.array</span>
+<span class="sd">        4 corner longitudes</span>
+<span class="sd">    max_lat: float</span>
+<span class="sd">        largest corner latitude</span>
+<span class="sd">    min_lat: float</span>
+<span class="sd">        smallest corner latitude</span>
+<span class="sd">    max_lon: float</span>
+<span class="sd">        largest corner longitude</span>
+<span class="sd">    min_lon: float</span>
+<span class="sd">        smallest corner longitude</span>
+<span class="sd">    lon_0: float</span>
+<span class="sd">        center longitude</span>
+<span class="sd">    lat_0: float</span>
+<span class="sd">        center latitude</span>
+<span class="sd">    daynight: str</span>
+<span class="sd">        &#39;Day&#39; or &#39;Night&#39;</span>
+<span class="sd">    starttime: str</span>
+<span class="sd">        swath start time in UCT</span>
+<span class="sd">    stoptime: str</span>
+<span class="sd">        swath stop time in UCT</span>
+<span class="sd">    startdate: str</span>
+<span class="sd">        swath start datein UCT</span>
+<span class="sd">    orbit: str</span>
+<span class="sd">        orbit number</span>
+<span class="sd">    equatordate: str</span>
+<span class="sd">        equator crossing date in UCT</span>
+<span class="sd">    equatortime: str</span>
+<span class="sd">        equator crossing time in UCT</span>
+<span class="sd">    nasaProductionDate: str</span>
+<span class="sd">        date file was produced, in UCT</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1"># meta_source can be either the path to an</span>
+    <span class="c1"># hdf4 file or the &quot;CoreMetadata.0&quot; string itself</span>
+    <span class="c1">#</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">meta_source</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="n">the_file</span> <span class="o">=</span> <span class="n">SD</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">),</span> <span class="n">SDC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+            <span class="n">metaDat</span> <span class="o">=</span> <span class="n">the_file</span><span class="o">.</span><span class="n">attributes</span><span class="p">()[</span><span class="s2">&quot;CoreMetadata.0&quot;</span><span class="p">]</span>
+            <span class="n">the_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;could not open </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+        <span class="c1">#</span>
+        <span class="c1"># filename too long, assume it&#39;s the metadata string</span>
+        <span class="c1">#</span>
+        <span class="n">metaDat</span> <span class="o">=</span> <span class="n">meta_source</span>
+    <span class="n">parseIt</span> <span class="o">=</span> <span class="n">metaParse</span><span class="p">(</span><span class="n">metaDat</span><span class="p">)</span>
+    <span class="n">outDict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;orbit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value2</span><span class="p">[</span><span class="s2">&quot;ORBITNUMBER&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;daynight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value3</span><span class="p">[</span><span class="s2">&quot;DAYNIGHTFLAG&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value3</span><span class="p">[</span><span class="s2">&quot;LOCALGRANULEID&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;stopdate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value4</span><span class="p">[</span><span class="s2">&quot;RANGEENDINGDATE&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;startdate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value4</span><span class="p">[</span><span class="s2">&quot;RANGEBEGINNINGDATE&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;starttime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value4</span><span class="p">[</span><span class="s2">&quot;RANGEBEGINNINGTIME&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;stoptime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value4</span><span class="p">[</span><span class="s2">&quot;RANGEENDINGTIME&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;equatortime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value2</span><span class="p">[</span><span class="s2">&quot;EQUATORCROSSINGTIME&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;equatordate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value2</span><span class="p">[</span><span class="s2">&quot;EQUATORCROSSINGDATE&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;nasaProductionDate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value3</span><span class="p">[</span><span class="s2">&quot;PRODUCTIONDATETIME&quot;</span><span class="p">][</span><span class="s2">&quot;VALUE&quot;</span><span class="p">]</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value5</span>
+    <span class="n">outDict</span><span class="p">[</span><span class="s2">&quot;sensor&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parseIt</span><span class="o">.</span><span class="n">value6</span>
+    <span class="n">outDict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">parseIt</span><span class="o">.</span><span class="n">value1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">outDict</span></div>
+
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">argument</span><span class="p">(</span><span class="s1">&#39;hdf_file&#39;</span><span class="p">,</span><span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span><span class="n">nargs</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">hdf_file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    print the metadata dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hdf_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">hdf_file</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">parseMeta</span><span class="p">(</span><span class="n">hdf_path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;core metadata for </span><span class="si">{</span><span class="n">hdf_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, phaustin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

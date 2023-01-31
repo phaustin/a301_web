@@ -5,12 +5,12 @@ Full module listing
 radiation full module
 =====================
 
-.. automodule:: rad_lib
+.. automodule:: rad_lib.radiation
    :members:             
 
-satellite full module
-=====================
+sat_lib full module
+===================
 
-.. automodule:: sat_lib
-   :members: modismeta_read, modis_chans            
+.. automodule:: sat_lib.modismeta_read
+   :members: 
 

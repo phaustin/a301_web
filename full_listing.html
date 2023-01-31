@@ -59,8 +59,11 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib">radiation full module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib">satellite full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modismeta-read">modismeta_read</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -78,8 +81,11 @@
       aria-labelledby="dLabelLocalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="module_functions.html">Module functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib">radiation full module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib">satellite full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modismeta-read">modismeta_read</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -127,8 +133,11 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="module_functions.html">Module functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib">radiation full module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib">satellite full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modismeta-read">modismeta_read</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -139,11 +148,103 @@
       
   <section id="full-module-listing">
 <h1>Full module listing<a class="headerlink" href="#full-module-listing" title="Permalink to this headline">¶</a></h1>
-<section id="module-rad_lib">
-<span id="radiation-full-module"></span><h2>radiation full module<a class="headerlink" href="#module-rad_lib" title="Permalink to this headline">¶</a></h2>
+<section id="module-rad_lib.radiation">
+<span id="radiation-full-module"></span><h2>radiation full module<a class="headerlink" href="#module-rad_lib.radiation" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="rad_lib.radiation.Elambda">
+<span class="sig-prename descclassname"><span class="pre">rad_lib.radiation.</span></span><span class="sig-name descname"><span class="pre">Elambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Temp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rad_lib/radiation.html#Elambda"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rad_lib.radiation.Elambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the blackbody radiant exitence (Stull 2.13)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavel</strong> (<em>float</em><em> or </em><em>array</em>) – wavelength (meters)</p></li>
+<li><p><strong>Temp</strong> (<em>float</em>) – temperature (K)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Elambda</strong> – monochromatic radiant exitence (W/m^2/m)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or arr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rad_lib.radiation.calc_radiance">
+<span class="sig-prename descclassname"><span class="pre">rad_lib.radiation.</span></span><span class="sig-name descname"><span class="pre">calc_radiance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Temp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rad_lib/radiation.html#calc_radiance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rad_lib.radiation.calc_radiance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the blackbody radiance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavel</strong> (<em>float</em><em> or </em><em>array</em>) – wavelength (meters)</p></li>
+<li><p><strong>Temp</strong> (<em>float</em>) – temperature (K)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Llambda</strong> – monochromatic radiance (W/m^2/m/sr)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or arr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rad_lib.radiation.test_planck_wavelen">
+<span class="sig-prename descclassname"><span class="pre">rad_lib.radiation.</span></span><span class="sig-name descname"><span class="pre">test_planck_wavelen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rad_lib/radiation.html#test_planck_wavelen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rad_lib.radiation.test_planck_wavelen" title="Permalink to this definition">¶</a></dt>
+<dd><p>test planck function for several wavelengths
+and Temps</p>
+</dd></dl>
+
 </section>
-<section id="module-sat_lib">
-<span id="satellite-full-module"></span><h2>satellite full module<a class="headerlink" href="#module-sat_lib" title="Permalink to this headline">¶</a></h2>
+<section id="module-sat_lib.modismeta_read">
+<span id="sat-lib-full-module"></span><h2>sat_lib full module<a class="headerlink" href="#module-sat_lib.modismeta_read" title="Permalink to this headline">¶</a></h2>
+<section id="modismeta-read">
+<h3>modismeta_read<a class="headerlink" href="#modismeta-read" title="Permalink to this headline">¶</a></h3>
+<p>parses a Modis Level1b CoreMetata.0 string and extracts
+a dictionary.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.modismeta_read.get_core">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.modismeta_read.</span></span><span class="sig-name descname"><span class="pre">get_core</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modismeta_read.html#get_core"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modismeta_read.get_core" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the path to a Modis hdf4 file with a “CoreMetadata.0” attribute
+return that value as a string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.modismeta_read.parseMeta">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.modismeta_read.</span></span><span class="sig-name descname"><span class="pre">parseMeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta_source</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modismeta_read.html#parseMeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modismeta_read.parseMeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read useful information from a CoreMetata.0 attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>meta_source</strong> (<em>str</em><em> or </em><em>Path object to file</em><em> or </em><em>string with metadata</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>outDict</strong> (<em>dict</em>) – key, value:</p></li>
+<li><p><strong>lat_list</strong> (<em>np.array</em>) – 4 corner latitudes</p></li>
+<li><p><strong>lon_list</strong> (<em>np.array</em>) – 4 corner longitudes</p></li>
+<li><p><strong>max_lat</strong> (<em>float</em>) – largest corner latitude</p></li>
+<li><p><strong>min_lat</strong> (<em>float</em>) – smallest corner latitude</p></li>
+<li><p><strong>max_lon</strong> (<em>float</em>) – largest corner longitude</p></li>
+<li><p><strong>min_lon</strong> (<em>float</em>) – smallest corner longitude</p></li>
+<li><p><strong>lon_0</strong> (<em>float</em>) – center longitude</p></li>
+<li><p><strong>lat_0</strong> (<em>float</em>) – center latitude</p></li>
+<li><p><strong>daynight</strong> (<em>str</em>) – ‘Day’ or ‘Night’</p></li>
+<li><p><strong>starttime</strong> (<em>str</em>) – swath start time in UCT</p></li>
+<li><p><strong>stoptime</strong> (<em>str</em>) – swath stop time in UCT</p></li>
+<li><p><strong>startdate</strong> (<em>str</em>) – swath start datein UCT</p></li>
+<li><p><strong>orbit</strong> (<em>str</em>) – orbit number</p></li>
+<li><p><strong>equatordate</strong> (<em>str</em>) – equator crossing date in UCT</p></li>
+<li><p><strong>equatortime</strong> (<em>str</em>) – equator crossing time in UCT</p></li>
+<li><p><strong>nasaProductionDate</strong> (<em>str</em>) – date file was produced, in UCT</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 </section>
 

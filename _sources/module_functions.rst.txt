@@ -5,18 +5,33 @@ Module functions
 rad_lib contents                  
 ================
 
+Utility functions for radiation calculations
+
 .. currentmodule:: rad_lib.radiation
 
 .. autosummary:: rad_lib.radiation
+   :recursive:
 
-   Elambda              
+   Elambda
    calc_radiance
    
 sat_lib contents
 ================
 
+In addition to the methods below, `sat_lib.modis_chans.chan_dict`
+is a dictionary with keys that give channel information (wavelength range,
+the name of the array the channel is stored in etc. Print `chan_dict` to
+see what's available
+
 .. currentmodule:: sat_lib.modismeta_read
 
 .. autosummary:: sat_lib.modismeta_read
+   :recursive:
 
+   get_core
    parseMeta
+
+
+
+
+   

@@ -15,9 +15,6 @@ A301 module documentation
 A301 command line programs
 ==========================
 
-
-------
-
 .. click:: sat_lib.modismeta_read:main
    :nested:
    :prog: meta_read

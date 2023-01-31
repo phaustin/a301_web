@@ -60,8 +60,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="full_listing.html">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-rad_lib">radiation full module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-sat_lib">satellite full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="full_listing.html#modismeta-read">modismeta_read</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -146,19 +149,20 @@
 <h1>Module functions<a class="headerlink" href="#module-functions" title="Permalink to this headline">¶</a></h1>
 <section id="rad-lib-contents">
 <h2>rad_lib contents<a class="headerlink" href="#rad-lib-contents" title="Permalink to this headline">¶</a></h2>
+<p>Utility functions for radiation calculations</p>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">rad_lib.radiation</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#module-rad_lib.radiation" title="rad_lib.radiation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rad_lib.radiation</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Elambda</span></code>(wavel, Temp)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="full_listing.html#rad_lib.radiation.Elambda" title="rad_lib.radiation.Elambda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Elambda</span></code></a>(wavel, Temp)</p></td>
 <td><p>Calculate the blackbody radiant exitence (Stull 2.13)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">calc_radiance</span></code>(wavel, Temp)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#rad_lib.radiation.calc_radiance" title="rad_lib.radiation.calc_radiance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calc_radiance</span></code></a>(wavel, Temp)</p></td>
 <td><p>Calculate the blackbody radiance</p></td>
 </tr>
 </tbody>
@@ -166,16 +170,23 @@
 </section>
 <section id="sat-lib-contents">
 <h2>sat_lib contents<a class="headerlink" href="#sat-lib-contents" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the methods below, <cite>sat_lib.modis_chans.chan_dict</cite>
+is a dictionary with keys that give channel information (wavelength range,
+the name of the array the channel is stored in etc. Print <cite>chan_dict</cite> to
+see what’s available</p>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_lib.modismeta_read</span></code></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#module-sat_lib.modismeta_read" title="sat_lib.modismeta_read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_lib.modismeta_read</span></code></a></p></td>
 <td><p>modismeta_read</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">parseMeta</span></code>(meta_source)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="full_listing.html#sat_lib.modismeta_read.get_core" title="sat_lib.modismeta_read.get_core"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_core</span></code></a>(filename)</p></td>
+<td><p>given the path to a Modis hdf4 file with a &quot;CoreMetadata.0&quot; attribute return that value as a string</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#sat_lib.modismeta_read.parseMeta" title="sat_lib.modismeta_read.parseMeta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parseMeta</span></code></a>(meta_source)</p></td>
 <td><p>Read useful information from a CoreMetata.0 attribute</p></td>
 </tr>
 </tbody>

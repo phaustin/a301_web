@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rad_lib.radiation &#8212; A301</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2023Jan29</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#rad-lib-contents">rad_lib contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#sat-lib-contents">sat_lib contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#modismeta-read">modismeta_read</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for rad_lib.radiation</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pytest</span>
+<span class="kn">from</span> <span class="nn">scipy.constants</span> <span class="kn">import</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">k</span>
+<span class="c1">#</span>
+<span class="c1"># get Stull&#39;s c_1 and c_2 from fundamental constants</span>
+<span class="c1">#</span>
+<span class="c1"># c=2.99792458e+08  #m/s -- speed of light in vacuum</span>
+<span class="c1"># h=6.62606876e-34  #J s  -- Planck&#39;s constant</span>
+<span class="c1"># k=1.3806503e-23  # J/K  -- Boltzman&#39;s constant</span>
+
+<span class="n">c1</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">c</span><span class="o">**</span><span class="mf">2.</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="n">c</span> <span class="o">/</span> <span class="n">k</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="mf">5.</span> <span class="o">*</span> <span class="n">k</span><span class="o">**</span><span class="mf">4.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">15</span> <span class="o">*</span> <span class="n">h</span><span class="o">**</span><span class="mf">3.</span> <span class="o">*</span> <span class="n">c</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Elambda"><a class="viewcode-back" href="../../full_listing.html#rad_lib.radiation.Elambda">[docs]</a><span class="k">def</span> <span class="nf">Elambda</span><span class="p">(</span><span class="n">wavel</span><span class="p">,</span> <span class="n">Temp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the blackbody radiant exitence (Stull 2.13)</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">      wavel: float or array</span>
+<span class="sd">           wavelength (meters)</span>
+
+<span class="sd">      Temp: float</span>
+<span class="sd">           temperature (K)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    Elambda:  float or arr</span>
+<span class="sd">           monochromatic radiant exitence (W/m^2/m)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Elambda_val</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="n">wavel</span><span class="o">**</span><span class="mf">5.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">c2</span> <span class="o">/</span> <span class="p">(</span><span class="n">wavel</span> <span class="o">*</span> <span class="n">Temp</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Elambda_val</span></div>
+
+<div class="viewcode-block" id="calc_radiance"><a class="viewcode-back" href="../../full_listing.html#rad_lib.radiation.calc_radiance">[docs]</a><span class="k">def</span> <span class="nf">calc_radiance</span><span class="p">(</span><span class="n">wavel</span><span class="p">,</span> <span class="n">Temp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the blackbody radiance</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">      wavel: float or array</span>
+<span class="sd">           wavelength (meters)</span>
+
+<span class="sd">      Temp: float</span>
+<span class="sd">           temperature (K)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    Llambda:  float or arr</span>
+<span class="sd">           monochromatic radiance (W/m^2/m/sr)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Llambda_val</span> <span class="o">=</span> <span class="n">c1</span> <span class="o">/</span> <span class="p">(</span><span class="n">wavel</span><span class="o">**</span><span class="mf">5.</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">c2</span> <span class="o">/</span> <span class="p">(</span><span class="n">wavel</span> <span class="o">*</span> <span class="n">Temp</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">Llambda_val</span></div>
+
+
+<div class="viewcode-block" id="test_planck_wavelen"><a class="viewcode-back" href="../../full_listing.html#rad_lib.radiation.test_planck_wavelen">[docs]</a><span class="k">def</span> <span class="nf">test_planck_wavelen</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       test planck function for several wavelengths</span>
+<span class="sd">       and Temps</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1"># need Temp in K and wavelen in m</span>
+    <span class="c1">#</span>
+    <span class="n">the_temps</span> <span class="o">=</span> <span class="p">[</span><span class="mf">200.</span><span class="p">,</span> <span class="mf">250.</span><span class="p">,</span> <span class="mf">350.</span><span class="p">]</span>
+    <span class="n">the_wavelens</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">12.</span><span class="p">])</span> <span class="o">*</span> <span class="mf">1.e-6</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">a_temp</span> <span class="ow">in</span> <span class="n">the_temps</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">a_wavelen</span> <span class="ow">in</span> <span class="n">the_wavelens</span><span class="p">:</span>
+            <span class="c1">#</span>
+            <span class="c1"># convert to W/m^2/micron/sr</span>
+            <span class="c1">#</span>
+            <span class="n">the_bbr</span> <span class="o">=</span> <span class="n">calc_radiance</span><span class="p">(</span><span class="n">a_wavelen</span><span class="p">,</span> <span class="n">a_temp</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.e-6</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">the_bbr</span><span class="p">)</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4521</span><span class="p">,</span>   <span class="mf">0.8954</span><span class="p">,</span>   <span class="mf">1.1955</span><span class="p">,</span>   <span class="mf">2.7324</span><span class="p">,</span>   <span class="mf">3.7835</span><span class="p">,</span>   <span class="mf">3.9883</span><span class="p">,</span>
+              <span class="mf">21.4495</span><span class="p">,</span>  <span class="mf">19.8525</span><span class="p">,</span>  <span class="mf">16.0931</span><span class="p">]</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">testing</span><span class="o">.</span><span class="n">assert_array_almost_equal</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">answer</span><span class="p">,</span> <span class="n">decimal</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1">#</span>
+    <span class="c1"># the variable __file__ contains the name of this file</span>
+    <span class="c1"># so the result of the following line will be the same as if</span>
+    <span class="c1"># you typed:</span>
+    <span class="c1">#</span>
+    <span class="c1"># pytest a301/radiation.py -q</span>
+    <span class="c1">#</span>
+    <span class="c1"># in a terminal  (the -q means &#39;suppress most of output&#39;)</span>
+    <span class="c1">#</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;testing </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+    <span class="n">pytest</span><span class="o">.</span><span class="n">main</span><span class="p">([</span><span class="vm">__file__</span><span class="p">,</span> <span class="s1">&#39;-q&#39;</span><span class="p">])</span>
+
+
+    
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, phaustin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
