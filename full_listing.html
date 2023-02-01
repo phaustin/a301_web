@@ -59,7 +59,10 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#radiation-code">radiation code</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#modismeta-read">modismeta_read</a></li>
 </ul>
@@ -81,7 +84,10 @@
       aria-labelledby="dLabelLocalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="module_functions.html">Module functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#radiation-code">radiation code</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#modismeta-read">modismeta_read</a></li>
 </ul>
@@ -133,7 +139,10 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="module_functions.html">Module functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#radiation-code">radiation code</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#modismeta-read">modismeta_read</a></li>
 </ul>
@@ -150,6 +159,9 @@
 <h1>Full module listing<a class="headerlink" href="#full-module-listing" title="Permalink to this headline">¶</a></h1>
 <section id="module-rad_lib.radiation">
 <span id="radiation-full-module"></span><h2>radiation full module<a class="headerlink" href="#module-rad_lib.radiation" title="Permalink to this headline">¶</a></h2>
+<section id="radiation-code">
+<h3>radiation code<a class="headerlink" href="#radiation-code" title="Permalink to this headline">¶</a></h3>
+<p>Functions to calculate flux and radiance</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="rad_lib.radiation.Elambda">
 <span class="sig-prename descclassname"><span class="pre">rad_lib.radiation.</span></span><span class="sig-name descname"><span class="pre">Elambda</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Temp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rad_lib/radiation.html#Elambda"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rad_lib.radiation.Elambda" title="Permalink to this definition">¶</a></dt>
@@ -191,12 +203,33 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="rad_lib.radiation.radiance_invert">
+<span class="sig-prename descclassname"><span class="pre">rad_lib.radiation.</span></span><span class="sig-name descname"><span class="pre">radiance_invert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rad_lib/radiation.html#radiance_invert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rad_lib.radiation.radiance_invert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the brightness temperature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavel</strong> (<em>float</em>) – wavelength (meters)</p></li>
+<li><p><strong>L</strong> (<em>float</em><em> or </em><em>array</em>) – Blackbody radiance (W/m^2/m/sr)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Tbright</strong> – brightness temperature (K)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or arr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="rad_lib.radiation.test_planck_wavelen">
 <span class="sig-prename descclassname"><span class="pre">rad_lib.radiation.</span></span><span class="sig-name descname"><span class="pre">test_planck_wavelen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/rad_lib/radiation.html#test_planck_wavelen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rad_lib.radiation.test_planck_wavelen" title="Permalink to this definition">¶</a></dt>
 <dd><p>test planck function for several wavelengths
 and Temps</p>
 </dd></dl>
 
+</section>
 </section>
 <section id="module-sat_lib.modismeta_read">
 <span id="sat-lib-full-module"></span><h2>sat_lib full module<a class="headerlink" href="#module-sat_lib.modismeta_read" title="Permalink to this headline">¶</a></h2>
