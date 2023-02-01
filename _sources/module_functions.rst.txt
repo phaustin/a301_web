@@ -14,6 +14,7 @@ Utility functions for radiation calculations
 
    Elambda
    calc_radiance
+   radiance_invert
    
 sat_lib contents
 ================
