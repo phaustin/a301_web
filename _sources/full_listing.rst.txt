@@ -14,3 +14,6 @@ sat_lib full module
 .. automodule:: sat_lib.modismeta_read
    :members: 
 
+.. automodule:: sat_lib.modis_chans
+   :members:
+      

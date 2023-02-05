@@ -31,6 +31,12 @@ see what's available
 
    get_core
    parseMeta
+
+.. currentmodule:: sat_lib.modismeta_read
+
+.. autosummary:: sat_lib.modis_chans
+   :recursive:
+
    readband_lw
    
 
