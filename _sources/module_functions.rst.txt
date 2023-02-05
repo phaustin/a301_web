@@ -31,6 +31,8 @@ see what's available
 
    get_core
    parseMeta
+   readband_lw
+   
 
 
 
