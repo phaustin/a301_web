@@ -60,12 +60,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="full_listing.html">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-rad_lib.radiation">read_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="full_listing.html#radiation-code">radiation code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="full_listing.html#satellite-utilities">satellite utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="full_listing.html#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="full_listing.html#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
 </ul>
@@ -176,10 +177,6 @@
 </section>
 <section id="sat-lib-contents">
 <h2>sat_lib contents<a class="headerlink" href="#sat-lib-contents" title="Permalink to this headline">¶</a></h2>
-<p>In addition to the methods below, <cite>sat_lib.modis_chans.chan_dict</cite>
-is a dictionary with keys that give channel information (wavelength range,
-the name of the array the channel is stored in etc. Print <cite>chan_dict</cite> to
-see what’s available</p>
 <table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -187,7 +184,7 @@ see what’s available</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#module-sat_lib.modismeta_read" title="sat_lib.modismeta_read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_lib.modismeta_read</span></code></a></p></td>
-<td><p>satellite utilities</p></td>
+<td><p>reading metadata</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="full_listing.html#sat_lib.modismeta_read.get_core" title="sat_lib.modismeta_read.get_core"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_core</span></code></a>(filename)</p></td>
 <td><p>given the path to a Modis hdf4 file with a &quot;CoreMetadata.0&quot; attribute return that value as a string</p></td>
@@ -203,8 +200,11 @@ see what’s available</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#module-sat_lib.modis_chans" title="sat_lib.modis_chans"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_lib.modis_chans</span></code></a></p></td>
-<td><p>Modis channel properties taken from <a class="reference external" href="https://modis.gsfc.nasa.gov/about/specifications.php">https://modis.gsfc.nasa.gov/about/specifications.php</a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#module-sat_lib.modischan_read" title="sat_lib.modischan_read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_lib.modischan_read</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="full_listing.html#sat_lib.modischan_read.readband_lw" title="sat_lib.modischan_read.readband_lw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readband_lw</span></code></a>(the_file, the_band)</p></td>
+<td><p>read and calibrate a MODIS L1B longwave band from an open hdf4 SD dataset or a path to the hdf4 file</p></td>
 </tr>
 </tbody>
 </table>

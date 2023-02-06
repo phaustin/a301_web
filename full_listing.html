@@ -59,12 +59,13 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">read_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#radiation-code">radiation code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#satellite-utilities">satellite utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
 </ul>
@@ -84,12 +85,13 @@
       aria-labelledby="dLabelLocalToc"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="module_functions.html">Module functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">read_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#radiation-code">radiation code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#satellite-utilities">satellite utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
 </ul>
@@ -139,12 +141,13 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="module_functions.html">Module functions</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-rad_lib.radiation">read_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#radiation-code">radiation code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#satellite-utilities">satellite utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
 </ul>
@@ -158,7 +161,7 @@
   <section id="full-module-listing">
 <h1>Full module listing<a class="headerlink" href="#full-module-listing" title="Permalink to this headline">¶</a></h1>
 <section id="module-rad_lib.radiation">
-<span id="radiation-full-module"></span><h2>radiation full module<a class="headerlink" href="#module-rad_lib.radiation" title="Permalink to this headline">¶</a></h2>
+<span id="read-lib-module"></span><h2>read_lib module<a class="headerlink" href="#module-rad_lib.radiation" title="Permalink to this headline">¶</a></h2>
 <section id="radiation-code">
 <h3>radiation code<a class="headerlink" href="#radiation-code" title="Permalink to this headline">¶</a></h3>
 <p>Functions to calculate flux and radiance</p>
@@ -232,16 +235,11 @@ and Temps</p>
 </section>
 </section>
 <section id="module-sat_lib.modismeta_read">
-<span id="sat-lib-full-module"></span><h2>sat_lib full module<a class="headerlink" href="#module-sat_lib.modismeta_read" title="Permalink to this headline">¶</a></h2>
-<section id="satellite-utilities">
-<h3>satellite utilities<a class="headerlink" href="#satellite-utilities" title="Permalink to this headline">¶</a></h3>
-<p>parses a Modis Level1b CoreMetata.0 string and extracts
+<span id="sat-lib-module"></span><h2>sat_lib module<a class="headerlink" href="#module-sat_lib.modismeta_read" title="Permalink to this headline">¶</a></h2>
+<section id="reading-metadata">
+<h3>reading metadata<a class="headerlink" href="#reading-metadata" title="Permalink to this headline">¶</a></h3>
+<p>get the  Level1b CoreMetata.0 string and extract
 a dictionary.</p>
-<p>Usage:</p>
-<blockquote>
-<div><p>from sat_lib.modismeta_read import parseMeta
-parseMeta(file_path)</p>
-</div></blockquote>
 <dl class="py function">
 <dt class="sig sig-object py" id="sat_lib.modismeta_read.get_core">
 <span class="sig-prename descclassname"><span class="pre">sat_lib.modismeta_read.</span></span><span class="sig-name descname"><span class="pre">get_core</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modismeta_read.html#get_core"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modismeta_read.get_core" title="Permalink to this definition">¶</a></dt>
@@ -283,19 +281,36 @@ return that value as a string</p>
 </dd></dl>
 
 </section>
-<span class="target" id="module-sat_lib.modis_chans"></span><p>Modis channel properties taken from
-<a class="reference external" href="https://modis.gsfc.nasa.gov/about/specifications.php">https://modis.gsfc.nasa.gov/about/specifications.php</a></p>
-<p>chan_dict is a dictionary indexed by channel – i.e.
-sat_lib.chan_dict[‘1’] gives channel information for channel 1
-in EV_250_Aggr1km_RefSB</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="sat_lib.modis_chans.readband_lw">
-<span class="sig-prename descclassname"><span class="pre">sat_lib.modis_chans.</span></span><span class="sig-name descname"><span class="pre">readband_lw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">the_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">the_band</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modis_chans.html#readband_lw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modis_chans.readband_lw" title="Permalink to this definition">¶</a></dt>
-<dd><p>read and calibrate a MODIS L1B longwave band from an open hdf4 SD dataset</p>
+<span class="target" id="module-sat_lib.modischan_read"></span><dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.modischan_read.read_plainvar">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.modischan_read.</span></span><span class="sig-name descname"><span class="pre">read_plainvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">the_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">the_var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modischan_read.html#read_plainvar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modischan_read.read_plainvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>read a modis variable like latitude or longitude that doesn’t require
+scaling or offset</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>the_file</strong> (<em>pyhdf.SD object</em>) – the dataset open for reading</p></li>
+<li><p><strong>the_file</strong> (<em>Path</em><em> or </em><em>str for the hdf file</em>) – </p></li>
+<li><p><strong>the_var</strong> (<em>str</em>) – variable name to extract</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>var_array</strong> – the_variable as a numpy array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.modischan_read.readband_lw">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.modischan_read.</span></span><span class="sig-name descname"><span class="pre">readband_lw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">the_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">the_band</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modischan_read.html#readband_lw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modischan_read.readband_lw" title="Permalink to this definition">¶</a></dt>
+<dd><p>read and calibrate a MODIS L1B longwave band from an open hdf4 SD dataset
+or a path to the hdf4 file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>the_file</strong> (<em>Path object</em><em> or </em><em>str for</em>) – hdf file</p></li>
 <li><p><strong>the_band</strong> (<em>int</em>) – band number for MODIS (20-36)</p></li>
 </ul>
 </dd>
@@ -308,6 +323,15 @@ in EV_250_Aggr1km_RefSB</p>
 </dl>
 </dd></dl>
 
+<section id="module-sat_lib.modis_chans">
+<span id="sat-lib-module-attributes"></span><h3>sat_lib module attributes<a class="headerlink" href="#module-sat_lib.modis_chans" title="Permalink to this headline">¶</a></h3>
+<p><strong>sat_lib.modischan_dict</strong></p>
+<p>Modis channel properties taken from
+<a class="reference external" href="https://modis.gsfc.nasa.gov/about/specifications.php">https://modis.gsfc.nasa.gov/about/specifications.php</a></p>
+<p>modischan_dict is a dictionary indexed by channel (str) – i.e.
+sat_lib.modischan_dict[‘1’] gives channel information for channel 1
+in EV_250_Aggr1km_RefSB</p>
+</section>
 </section>
 </section>
 

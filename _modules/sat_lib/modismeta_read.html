@@ -57,12 +57,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-rad_lib.radiation">read_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#radiation-code">radiation code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#satellite-utilities">satellite utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
 </ul>
@@ -127,16 +128,12 @@
       
   <h1>Source code for sat_lib.modismeta_read</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  satellite utilities</span>
-<span class="sd">  ___________________</span>
+<span class="sd">  reading metadata</span>
+<span class="sd">  ________________</span>
 
-<span class="sd">  parses a Modis Level1b CoreMetata.0 string and extracts</span>
+<span class="sd">  get the  Level1b CoreMetata.0 string and extract</span>
 <span class="sd">  a dictionary.</span>
 
-<span class="sd">  Usage:</span>
-
-<span class="sd">      from sat_lib.modismeta_read import parseMeta</span>
-<span class="sd">      parseMeta(file_path)</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">click</span>

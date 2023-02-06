@@ -59,12 +59,13 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="full_listing.html">Full module listing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-rad_lib.radiation">radiation full module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-rad_lib.radiation">read_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="full_listing.html#radiation-code">radiation code</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-sat_lib.modismeta_read">sat_lib full module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="full_listing.html#satellite-utilities">satellite utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="full_listing.html#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="full_listing.html#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
 </ul>
@@ -145,9 +146,38 @@
 </div>
 <section id="a301-command-line-programs">
 <h2>A301 command line programs<a class="headerlink" href="#a301-command-line-programs" title="Permalink to this headline">¶</a></h2>
+<section id="hdf4-inspect">
+<h3>hdf4_inspect<a class="headerlink" href="#hdf4-inspect" title="Permalink to this headline">¶</a></h3>
+<p>print information about an hdf4 file</p>
+<section id="parameters">
+<h4>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h4>
+<p>hdf_file: path or str to hdf data</p>
+</section>
+<section id="returns">
+<h4>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h4>
+<p>side effect: printing the hdf_file info</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>hdf4_inspect <span class="o">[</span>OPTIONS<span class="o">]</span> HDF_FILE
+</pre></div>
+</div>
+<p class="rubric">Arguments</p>
+<dl class="std option">
+<dt class="sig sig-object std" id="cmdoption-hdf4_inspect-arg-HDF_FILE">
+<span id="cmdoption-hdf4-inspect-arg-hdf-file"></span><span class="sig-name descname"><span class="pre">HDF_FILE</span></span><span class="sig-prename descclassname"></span><a class="headerlink" href="#cmdoption-hdf4_inspect-arg-HDF_FILE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Required argument</p>
+</dd></dl>
+
+</section>
+</section>
 <section id="meta-read">
 <h3>meta_read<a class="headerlink" href="#meta-read" title="Permalink to this headline">¶</a></h3>
 <p>print the metadata dict</p>
+<section id="id1">
+<h4>Parameters<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>hdf_file: path or str to hdf data</p>
+</section>
+<section id="id2">
+<h4>Returns<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>side effect: printing the metadata dictionary</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>meta_read <span class="o">[</span>OPTIONS<span class="o">]</span> HDF_FILE
 </pre></div>
 </div>
@@ -158,6 +188,7 @@
 <dd><p>Required argument</p>
 </dd></dl>
 
+</section>
 </section>
 <br />
 <br />

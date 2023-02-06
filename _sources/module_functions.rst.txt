@@ -19,10 +19,6 @@ Utility functions for radiation calculations
 sat_lib contents
 ================
 
-In addition to the methods below, `sat_lib.modis_chans.chan_dict`
-is a dictionary with keys that give channel information (wavelength range,
-the name of the array the channel is stored in etc. Print `chan_dict` to
-see what's available
 
 .. currentmodule:: sat_lib.modismeta_read
 
@@ -31,16 +27,13 @@ see what's available
 
    get_core
    parseMeta
+   
+.. currentmodule:: sat_lib.modischan_read
 
-.. currentmodule:: sat_lib.modismeta_read
-
-.. autosummary:: sat_lib.modis_chans
+.. autosummary:: sat_lib.modischan_read
    :recursive:
 
    readband_lw
-   
-
-
-
+  
 
    

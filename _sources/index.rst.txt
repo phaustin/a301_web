@@ -15,10 +15,15 @@ A301 module documentation
 A301 command line programs
 ==========================
 
+.. click:: sat_lib.hdf4_inspect:main
+   :nested:
+   :prog: hdf4_inspect
+
 .. click:: sat_lib.modismeta_read:main
    :nested:
    :prog: meta_read
 
+          
 .. raw:: html
 
    <br />

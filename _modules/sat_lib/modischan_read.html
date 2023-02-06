@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sat_lib.modischan_read &#8212; A301</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2023Jan29</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#rad-lib-contents">rad_lib contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#sat-lib-contents">sat_lib contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-rad_lib.radiation">read_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#radiation-code">radiation code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for sat_lib.modischan_read</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">pyhdf.SD</span> <span class="kn">import</span> <span class="n">SD</span><span class="p">,</span> <span class="n">SDC</span>
+<span class="kn">import</span> <span class="nn">pyhdf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<div class="viewcode-block" id="readband_lw"><a class="viewcode-back" href="../../full_listing.html#sat_lib.modischan_read.readband_lw">[docs]</a><span class="k">def</span> <span class="nf">readband_lw</span><span class="p">(</span><span class="n">the_file</span><span class="p">,</span> <span class="n">the_band</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    read and calibrate a MODIS L1B longwave band from an open hdf4 SD dataset</span>
+<span class="sd">    or a path to the hdf4 file</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">       the_file: Path object or str for </span>
+<span class="sd">           hdf file</span>
+<span class="sd">       the_band: int</span>
+<span class="sd">           band number for MODIS (20-36)</span>
+<span class="sd">           </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">       the_chan_calibrated: ndarray</span>
+<span class="sd">           the pixel radiances in W/m^2/sr/micron</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sd_file</span> <span class="o">=</span> <span class="n">sd_open_file</span><span class="p">(</span><span class="n">the_file</span><span class="p">)</span>
+    <span class="n">longwave_data</span> <span class="o">=</span> <span class="n">sd_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;EV_1KM_Emissive&quot;</span><span class="p">)</span>  <span class="c1"># select sds</span>
+    <span class="n">longwave_bands</span> <span class="o">=</span> <span class="n">sd_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;Band_1KM_Emissive&quot;</span><span class="p">)</span>
+    <span class="n">band_nums</span> <span class="o">=</span> <span class="n">longwave_bands</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">thechan_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">band_nums</span><span class="p">,</span> <span class="n">the_band</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;channel index for band </span><span class="si">{</span><span class="n">the_band</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">thechan_index</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">thechan_data</span> <span class="o">=</span> <span class="n">longwave_data</span><span class="p">[</span><span class="n">thechan_index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="n">scales</span> <span class="o">=</span> <span class="n">longwave_data</span><span class="o">.</span><span class="n">attributes</span><span class="p">()[</span><span class="s2">&quot;radiance_scales&quot;</span><span class="p">]</span>
+    <span class="n">offsets</span> <span class="o">=</span> <span class="n">longwave_data</span><span class="o">.</span><span class="n">attributes</span><span class="p">()[</span><span class="s2">&quot;radiance_offsets&quot;</span><span class="p">]</span>
+    <span class="n">thechan_scale</span> <span class="o">=</span> <span class="n">scales</span><span class="p">[</span><span class="n">thechan_index</span><span class="p">]</span>
+    <span class="n">thechan_offset</span> <span class="o">=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">thechan_index</span><span class="p">]</span>
+    <span class="n">thechan_calibrated</span> <span class="o">=</span> <span class="p">(</span><span class="n">thechan_data</span> <span class="o">-</span> <span class="n">thechan_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">thechan_scale</span>
+    <span class="n">sd_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">thechan_calibrated</span></div>
+
+<div class="viewcode-block" id="read_plainvar"><a class="viewcode-back" href="../../full_listing.html#sat_lib.modischan_read.read_plainvar">[docs]</a><span class="k">def</span> <span class="nf">read_plainvar</span><span class="p">(</span><span class="n">the_file</span><span class="p">,</span> <span class="n">the_var</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    read a modis variable like latitude or longitude that doesn&#39;t require</span>
+<span class="sd">    scaling or offset</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">       the_file: Path or str for the hdf file</span>
+
+<span class="sd">       the_var: str</span>
+<span class="sd">           variable name to extract</span>
+<span class="sd">           </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">       var_array: ndarray</span>
+<span class="sd">           the_variable as a numpy array</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sd_file</span> <span class="o">=</span> <span class="n">sd_open_file</span><span class="p">(</span><span class="n">the_file</span><span class="p">)</span>
+    <span class="n">sd_var</span> <span class="o">=</span> <span class="n">sd_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">the_var</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># get the variable and convert to a ndarray</span>
+    <span class="c1"># [...] gets all the data, no matter how many</span>
+    <span class="c1"># dimensions</span>
+    <span class="c1">#</span>
+    <span class="n">var_array</span> <span class="o">=</span> <span class="n">sd_var</span><span class="o">.</span><span class="n">get</span><span class="p">()[</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">sd_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">var_array</span></div>
+    
+<span class="k">def</span> <span class="nf">sd_open_file</span><span class="p">(</span><span class="n">the_file</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1">#</span>
+        <span class="c1"># is the_file a str or Path?</span>
+        <span class="c1">#</span>
+        <span class="n">hdf_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">the_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">hdf_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;can&#39;t find file </span><span class="si">{</span><span class="n">hdf_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">sd_file</span> <span class="o">=</span> <span class="n">SD</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">the_file</span><span class="p">),</span> <span class="n">SDC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;opened file: </span><span class="si">{</span><span class="n">the_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;need a str or path got </span><span class="si">{</span><span class="n">the_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># don&#39;t forget to close with sd_file.end() when finished</span>
+    <span class="c1">#</span>
+    <span class="k">return</span> <span class="n">sd_file</span>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, phaustin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

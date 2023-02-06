@@ -2,18 +2,25 @@ Full module listing
 +++++++++++++++++++
 
 
-radiation full module
-=====================
+read_lib module
+===============
 
 .. automodule:: rad_lib.radiation
    :members:             
 
-sat_lib full module
-===================
+sat_lib module
+==============
 
 .. automodule:: sat_lib.modismeta_read
    :members: 
 
-.. automodule:: sat_lib.modis_chans
+.. automodule:: sat_lib.modischan_read
    :members:
+
+
+sat_lib module attributes
+-------------------------
       
+.. automodule:: sat_lib.modis_chans
+
+   
