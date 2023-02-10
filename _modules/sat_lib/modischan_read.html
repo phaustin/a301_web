@@ -63,6 +63,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modismeta_read">sat_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#reading-channels-and-variables">reading channels and variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
@@ -127,21 +128,25 @@
     <div class="body col-md-9 content" role="main">
       
   <h1>Source code for sat_lib.modischan_read</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">pyhdf.SD</span> <span class="kn">import</span> <span class="n">SD</span><span class="p">,</span> <span class="n">SDC</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">reading channels and variables</span>
+<span class="sd">______________________________</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pyhdf.SD</span> <span class="kn">import</span> <span class="n">SD</span><span class="p">,</span> <span class="n">SDC</span>
 <span class="kn">import</span> <span class="nn">pyhdf</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <div class="viewcode-block" id="readband_lw"><a class="viewcode-back" href="../../full_listing.html#sat_lib.modischan_read.readband_lw">[docs]</a><span class="k">def</span> <span class="nf">readband_lw</span><span class="p">(</span><span class="n">the_file</span><span class="p">,</span> <span class="n">the_band</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    read and calibrate a MODIS L1B longwave band from an open hdf4 SD dataset</span>
-<span class="sd">    or a path to the hdf4 file</span>
+<span class="sd">    read and calibrate a MODIS L1B longwave band from the </span>
+<span class="sd">     path to the hdf4 file</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    </span>
-<span class="sd">       the_file: Path object or str for </span>
-<span class="sd">           hdf file</span>
+<span class="sd">       the_file: str</span>
+<span class="sd">           path to the hdf4 file</span>
 <span class="sd">       the_band: int</span>
 <span class="sd">           band number for MODIS (20-36)</span>
 <span class="sd">           </span>
@@ -164,6 +169,45 @@
     <span class="n">thechan_calibrated</span> <span class="o">=</span> <span class="p">(</span><span class="n">thechan_data</span> <span class="o">-</span> <span class="n">thechan_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">thechan_scale</span>
     <span class="n">sd_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">thechan_calibrated</span></div>
+
+
+<div class="viewcode-block" id="readband_wv"><a class="viewcode-back" href="../../full_listing.html#sat_lib.modischan_read.readband_wv">[docs]</a><span class="k">def</span> <span class="nf">readband_wv</span><span class="p">(</span><span class="n">the_file</span><span class="p">,</span> <span class="n">band_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    see: https://atmosphere-imager.gsfc.nasa.gov/sites/default/files/ModAtmo/MYD05_L2.C6.CDL.fs</span>
+<span class="sd">       for file format</span>
+<span class="sd">       </span>
+<span class="sd">    read and calibrate a MODIS level 2 water vapor file</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">       the_file: str</span>
+<span class="sd">           path to the hdf file</span>
+<span class="sd">       band_name: str</span>
+<span class="sd">           either &#39;Water_Vapor_Near_Infrared` or `Water_Vapor_Infrared` </span>
+<span class="sd">           </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">       the_chan_calibrated: ndarray</span>
+<span class="sd">           column water vapor in cm</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sd_file</span> <span class="o">=</span> <span class="n">sd_open_file</span><span class="p">(</span><span class="n">the_file</span><span class="p">)</span>
+    <span class="n">wv_data</span> <span class="o">=</span> <span class="n">sd_file</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">band_name</span><span class="p">)</span>  <span class="c1"># select sds</span>
+    <span class="n">wv_image</span> <span class="o">=</span> <span class="n">wv_data</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="c1">#</span>
+    <span class="c1"># convert from int16 to float64</span>
+    <span class="c1">#</span>
+    <span class="n">wv_image</span> <span class="o">=</span> <span class="n">wv_image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="n">wv_scale</span> <span class="o">=</span> <span class="n">wv_data</span><span class="o">.</span><span class="n">attributes</span><span class="p">()[</span><span class="s1">&#39;scale_factor&#39;</span><span class="p">]</span>
+    <span class="n">wv_offset</span> <span class="o">=</span> <span class="n">wv_data</span><span class="o">.</span><span class="n">attributes</span><span class="p">()[</span><span class="s1">&#39;add_offset&#39;</span><span class="p">]</span>
+    <span class="n">fill_value</span> <span class="o">=</span> <span class="n">wv_data</span><span class="o">.</span><span class="n">attributes</span><span class="p">()[</span><span class="s1">&#39;_FillValue&#39;</span><span class="p">]</span>
+    <span class="c1">#</span>
+    <span class="c1"># convert fill values = -9999 to np.nan</span>
+    <span class="c1">#</span>
+    <span class="n">wv_image</span><span class="p">[</span><span class="n">wv_image</span> <span class="o">==</span> <span class="n">fill_value</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">wv_calibrated</span> <span class="o">=</span> <span class="p">(</span><span class="n">wv_image</span> <span class="o">*</span> <span class="n">wv_scale</span><span class="p">)</span> <span class="o">+</span> <span class="n">wv_offset</span>
+    <span class="n">sd_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">wv_calibrated</span></div>
 
 <div class="viewcode-block" id="read_plainvar"><a class="viewcode-back" href="../../full_listing.html#sat_lib.modischan_read.read_plainvar">[docs]</a><span class="k">def</span> <span class="nf">read_plainvar</span><span class="p">(</span><span class="n">the_file</span><span class="p">,</span> <span class="n">the_var</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -210,6 +254,10 @@
     <span class="c1"># don&#39;t forget to close with sd_file.end() when finished</span>
     <span class="c1">#</span>
     <span class="k">return</span> <span class="n">sd_file</span>
+
+
+
+
 </pre></div>
 
     </div>

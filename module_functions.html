@@ -66,6 +66,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="full_listing.html#module-sat_lib.modismeta_read">sat_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="full_listing.html#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="full_listing.html#reading-channels-and-variables">reading channels and variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="full_listing.html#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
@@ -201,13 +202,33 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#module-sat_lib.modischan_read" title="sat_lib.modischan_read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_lib.modischan_read</span></code></a></p></td>
-<td><p></p></td>
+<td><p>reading channels and variables</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="full_listing.html#sat_lib.modischan_read.readband_lw" title="sat_lib.modischan_read.readband_lw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">readband_lw</span></code></a>(the_file, the_band)</p></td>
-<td><p>read and calibrate a MODIS L1B longwave band from an open hdf4 SD dataset or a path to the hdf4 file</p></td>
+<td><p>read and calibrate a MODIS L1B longwave band from the</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#sat_lib.modischan_read.read_plainvar" title="sat_lib.modischan_read.read_plainvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_plainvar</span></code></a>(the_file, the_var)</p></td>
 <td><p>read a modis variable like latitude or longitude that doesn't require scaling or offset</p></td>
+</tr>
+</tbody>
+</table>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#module-sat_lib.mapping" title="sat_lib.mapping"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sat_lib.mapping</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="full_listing.html#sat_lib.mapping.get_proj_params" title="sat_lib.mapping.get_proj_params"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_proj_params</span></code></a>(metadata)</p></td>
+<td><p>given a metadata dictionary from parseMeta, return proj4 parameters for use by cartopy or pyresample, assuming a laea projection and WGS84 datum</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="full_listing.html#sat_lib.mapping.area_def_to_dict" title="sat_lib.mapping.area_def_to_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">area_def_to_dict</span></code></a>(area_def)</p></td>
+<td><p>given an area_def, save it as a dictionary`</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="full_listing.html#sat_lib.mapping.area_def_from_dict" title="sat_lib.mapping.area_def_from_dict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">area_def_from_dict</span></code></a>(area_def_dict)</p></td>
+<td><p>given an dictionary produced by area_def_to_dict return a pyresample area_def</p></td>
 </tr>
 </tbody>
 </table>

@@ -36,4 +36,14 @@ sat_lib contents
    readband_lw
    read_plainvar
 
+
+.. currentmodule:: sat_lib.mapping
+
+.. autosummary:: sat_lib.mapping
+   :recursive:
+
+   get_proj_params
+   area_def_to_dict
+   area_def_from_dict
+   
    

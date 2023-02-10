@@ -17,6 +17,9 @@ sat_lib module
 .. automodule:: sat_lib.modischan_read
    :members:
 
+.. automodule:: sat_lib.mapping
+   :members:
+      
 
 sat_lib module attributes
 -------------------------

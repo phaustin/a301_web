@@ -65,6 +65,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-channels-and-variables">reading channels and variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
@@ -91,6 +92,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-channels-and-variables">reading channels and variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
@@ -147,6 +149,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-sat_lib.modismeta_read">sat_lib module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reading-channels-and-variables">reading channels and variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
 </ul>
 </li>
@@ -281,7 +284,9 @@ return that value as a string</p>
 </dd></dl>
 
 </section>
-<span class="target" id="module-sat_lib.modischan_read"></span><dl class="py function">
+<span class="target" id="module-sat_lib.modischan_read"></span><section id="reading-channels-and-variables">
+<h3>reading channels and variables<a class="headerlink" href="#reading-channels-and-variables" title="Permalink to this headline">¶</a></h3>
+<dl class="py function">
 <dt class="sig sig-object py" id="sat_lib.modischan_read.read_plainvar">
 <span class="sig-prename descclassname"><span class="pre">sat_lib.modischan_read.</span></span><span class="sig-name descname"><span class="pre">read_plainvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">the_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">the_var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modischan_read.html#read_plainvar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modischan_read.read_plainvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>read a modis variable like latitude or longitude that doesn’t require
@@ -305,12 +310,14 @@ scaling or offset</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sat_lib.modischan_read.readband_lw">
 <span class="sig-prename descclassname"><span class="pre">sat_lib.modischan_read.</span></span><span class="sig-name descname"><span class="pre">readband_lw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">the_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">the_band</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modischan_read.html#readband_lw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modischan_read.readband_lw" title="Permalink to this definition">¶</a></dt>
-<dd><p>read and calibrate a MODIS L1B longwave band from an open hdf4 SD dataset
-or a path to the hdf4 file</p>
+<dd><dl class="simple">
+<dt>read and calibrate a MODIS L1B longwave band from the</dt><dd><p>path to the hdf4 file</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>the_file</strong> (<em>Path object</em><em> or </em><em>str for</em>) – hdf file</p></li>
+<li><p><strong>the_file</strong> (<em>str</em>) – path to the hdf4 file</p></li>
 <li><p><strong>the_band</strong> (<em>int</em>) – band number for MODIS (20-36)</p></li>
 </ul>
 </dd>
@@ -319,6 +326,83 @@ or a path to the hdf4 file</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.modischan_read.readband_wv">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.modischan_read.</span></span><span class="sig-name descname"><span class="pre">readband_wv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">the_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/modischan_read.html#readband_wv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.modischan_read.readband_wv" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>see: <a class="reference external" href="https://atmosphere-imager.gsfc.nasa.gov/sites/default/files/ModAtmo/MYD05_L2.C6.CDL.fs">https://atmosphere-imager.gsfc.nasa.gov/sites/default/files/ModAtmo/MYD05_L2.C6.CDL.fs</a></dt><dd><p>for file format</p>
+</dd>
+</dl>
+<p>read and calibrate a MODIS level 2 water vapor file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>the_file</strong> (<em>str</em>) – path to the hdf file</p></li>
+<li><p><strong>band_name</strong> (<em>str</em>) – either ‘Water_Vapor_Near_Infrared` or <cite>Water_Vapor_Infrared</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>the_chan_calibrated</strong> – column water vapor in cm</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<span class="target" id="module-sat_lib.mapping"></span><dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.mapping.area_def_from_dict">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.mapping.</span></span><span class="sig-name descname"><span class="pre">area_def_from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">area_def_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/mapping.html#area_def_from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.mapping.area_def_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>given an dictionary produced by area_def_to_dict
+return a pyresample area_def</p>
+<p>introduced in level2_cartopy_plot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>area_def_dict</strong> (<em>dict</em>) – dictionary containing area_def parameters</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pyresample.area_def</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.mapping.area_def_to_dict">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.mapping.</span></span><span class="sig-name descname"><span class="pre">area_def_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">area_def</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/mapping.html#area_def_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.mapping.area_def_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>given an area_def, save it as a dictionary`</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>area_def</strong> (<em>pyresample area_def object</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>area_dict</strong> – area_def dictionary</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.mapping.get_proj_params">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.mapping.</span></span><span class="sig-name descname"><span class="pre">get_proj_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metadata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/mapping.html#get_proj_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.mapping.get_proj_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>given a metadata dictionary from parseMeta, return proj4 parameters
+for use by cartopy or pyresample, assuming a laea projection
+and WGS84 datum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>metadata</strong> (<em>dictionary</em>) – returned by parseMeta</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>(proj_params, globe)</strong> – projection params plus datum created by cartopy crs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict, cartopy.crs.Globe</p>
 </dd>
 </dl>
 </dd></dl>
