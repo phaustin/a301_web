@@ -408,6 +408,48 @@ and WGS84 datum</p>
 </dl>
 </dd></dl>
 
+<span class="target" id="module-sat_lib.thermo"></span><dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.thermo.calcDensHeight">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.thermo.</span></span><span class="sig-name descname"><span class="pre">calcDensHeight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/thermo.html#calcDensHeight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.thermo.calcDensHeight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the density scale height H_rho</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>vector</em><em> (</em><em>float</em><em>)</em>) – temperature (K)</p></li>
+<li><p><strong>p</strong> (<em>vector</em><em> (</em><em>float</em><em>) </em><em>of len</em><em>(</em><em>T</em><em>)</em>) – pressure (pa)</p></li>
+<li><p><strong>z</strong> (<em>vector</em><em> (</em><em>float</em><em>) </em><em>of len</em><em>(</em><em>T</em>) – height (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Hbar</strong> – density scale height (m)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>vector (float) of len(T)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.thermo.calcScaleHeight">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.thermo.</span></span><span class="sig-name descname"><span class="pre">calcScaleHeight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/thermo.html#calcScaleHeight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.thermo.calcScaleHeight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the pressure scale height H_p</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> (<em>vector</em><em> (</em><em>float</em><em>)</em>) – temperature (K)</p></li>
+<li><p><strong>p</strong> (<em>vector</em><em> (</em><em>float</em><em>) </em><em>of len</em><em>(</em><em>T</em><em>)</em>) – pressure (pa)</p></li>
+<li><p><strong>z</strong> (<em>vector</em><em> (</em><em>float</em><em>) </em><em>of len</em><em>(</em><em>T</em>) – height (m)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Hbar</strong> – pressure scale height (m)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>vector (float) of len(T)</p>
+</dd>
+</dl>
+</dd></dl>
+
 <section id="module-sat_lib.modis_chans">
 <span id="sat-lib-module-attributes"></span><h3>sat_lib module attributes<a class="headerlink" href="#module-sat_lib.modis_chans" title="Permalink to this headline">¶</a></h3>
 <p><strong>sat_lib.modischan_dict</strong></p>

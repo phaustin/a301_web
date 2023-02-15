@@ -19,7 +19,10 @@ sat_lib module
 
 .. automodule:: sat_lib.mapping
    :members:
-      
+
+.. automodule:: sat_lib.thermo
+   :members:
+   
 
 sat_lib module attributes
 -------------------------

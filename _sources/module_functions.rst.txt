@@ -45,5 +45,14 @@ sat_lib contents
    get_proj_params
    area_def_to_dict
    area_def_from_dict
-   
+
+.. currentmodule:: sat_lib.thermo
+
+.. autosummary:: sat_lib.thermo
+   :recursive:
+
+   calcScaleHeight
+   calcDensHeight
+
+      
    
