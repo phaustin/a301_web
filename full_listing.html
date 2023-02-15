@@ -415,9 +415,16 @@ and WGS84 datum</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>T</strong> (<em>vector</em><em> (</em><em>float</em><em>)</em>) – temperature (K)</p></li>
-<li><p><strong>p</strong> (<em>vector</em><em> (</em><em>float</em><em>) </em><em>of len</em><em>(</em><em>T</em><em>)</em>) – pressure (pa)</p></li>
-<li><p><strong>z</strong> (<em>vector</em><em> (</em><em>float</em><em>) </em><em>of len</em><em>(</em><em>T</em>) – height (m)</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – </p></li>
+<li><p><strong>columns</strong> (<em>df</em>) – <dl class="simple">
+<dt>T: vector (float)</dt><dd><p>temperature (K)</p>
+</dd>
+<dt>p: vector (float) of len(T)</dt><dd><p>pressure (pa)</p>
+</dd>
+<dt>z: vector (float) of len(T</dt><dd><p>height (m)</p>
+</dd>
+</dl>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -436,9 +443,16 @@ and WGS84 datum</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>T</strong> (<em>vector</em><em> (</em><em>float</em><em>)</em>) – temperature (K)</p></li>
-<li><p><strong>p</strong> (<em>vector</em><em> (</em><em>float</em><em>) </em><em>of len</em><em>(</em><em>T</em><em>)</em>) – pressure (pa)</p></li>
-<li><p><strong>z</strong> (<em>vector</em><em> (</em><em>float</em><em>) </em><em>of len</em><em>(</em><em>T</em>) – height (m)</p></li>
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – </p></li>
+<li><p><strong>columns</strong> – <dl class="simple">
+<dt>T: vector (float)</dt><dd><p>temperature (K)</p>
+</dd>
+<dt>p: vector (float) of len(T)</dt><dd><p>pressure (pa)</p>
+</dd>
+<dt>z: vector (float) of len(T</dt><dd><p>height (m)</p>
+</dd>
+</dl>
+</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
