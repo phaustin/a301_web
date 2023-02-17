@@ -45,6 +45,7 @@ sat_lib contents
    get_proj_params
    area_def_to_dict
    area_def_from_dict
+   make_areadef_dict
 
 .. currentmodule:: sat_lib.thermo
 

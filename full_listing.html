@@ -408,6 +408,33 @@ and WGS84 datum</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.mapping.make_areadef_dict">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.mapping.</span></span><span class="sig-name descname"><span class="pre">make_areadef_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon_0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ll_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ll_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'laea'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">area_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'laea_a301'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">proj_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'laea_a301'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'human</span> <span class="pre">readable</span> <span class="pre">area</span> <span class="pre">def'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/mapping.html#make_areadef_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.mapping.make_areadef_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>construct a pyresample area_def from central lon/lat and raster
+characteristics</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat_0</strong> (<em>float</em>) – crs central latitude</p></li>
+<li><p><strong>lon_0</strong> (<em>float</em>) – crs central longitude</p></li>
+<li><p><strong>ll_x</strong> (<em>float</em>) – projection x coord of lower left pixel edge</p></li>
+<li><p><strong>ll_y</strong> (<em>float</em>) – projection y coord of lower left pixel bottom</p></li>
+<li><p><strong>pixel_x_size</strong> (<em>float</em>) – pixel horizontal size in projection coords</p></li>
+<li><p><strong>pixel_y_size</strong> (<em>float</em>) – pixel vertical size in projection coords</p></li>
+<li><p><strong>x_size</strong> (<em>float</em>) – number of columns in raster</p></li>
+<li><p><strong>y_size</strong> (<em>float</em>) – number of rows in raster</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>area_dict</strong> – dictionary used as input to mapping.area_def_from_dict</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
 <span class="target" id="module-sat_lib.thermo"></span><dl class="py function">
 <dt class="sig sig-object py" id="sat_lib.thermo.calcDensHeight">
 <span class="sig-prename descclassname"><span class="pre">sat_lib.thermo.</span></span><span class="sig-name descname"><span class="pre">calcDensHeight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/thermo.html#calcDensHeight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.thermo.calcDensHeight" title="Permalink to this definition">¶</a></dt>

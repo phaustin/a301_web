@@ -161,6 +161,67 @@
     <span class="k">return</span> <span class="n">projection</span></div>
 
 
+<div class="viewcode-block" id="make_areadef_dict"><a class="viewcode-back" href="../../full_listing.html#sat_lib.mapping.make_areadef_dict">[docs]</a><span class="k">def</span> <span class="nf">make_areadef_dict</span><span class="p">(</span><span class="n">lat_0</span><span class="p">,</span><span class="n">lon_0</span><span class="p">,</span><span class="n">ll_x</span><span class="p">,</span><span class="n">ll_y</span><span class="p">,</span><span class="n">pixel_size_x</span><span class="p">,</span><span class="n">pixel_size_y</span><span class="p">,</span>
+                 <span class="n">x_size</span><span class="p">,</span> <span class="n">y_size</span><span class="p">,</span>
+                 <span class="n">proj</span><span class="o">=</span><span class="s2">&quot;laea&quot;</span><span class="p">,</span><span class="n">area_id</span><span class="o">=</span><span class="s2">&quot;laea_a301&quot;</span><span class="p">,</span><span class="n">proj_id</span><span class="o">=</span><span class="s2">&quot;laea_a301&quot;</span><span class="p">,</span>
+                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;human readable area def&quot;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    construct a pyresample area_def from central lon/lat and raster</span>
+<span class="sd">    characteristics</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    lat_0: float</span>
+<span class="sd">      crs central latitude</span>
+<span class="sd">    lon_0: float</span>
+<span class="sd">      crs central longitude</span>
+<span class="sd">    ll_x: float</span>
+<span class="sd">      projection x coord of lower left pixel edge</span>
+<span class="sd">    ll_y: float</span>
+<span class="sd">      projection y coord of lower left pixel bottom</span>
+<span class="sd">    pixel_x_size: float</span>
+<span class="sd">      pixel horizontal size in projection coords</span>
+<span class="sd">    pixel_y_size: float</span>
+<span class="sd">      pixel vertical size in projection coords</span>
+<span class="sd">    x_size: float</span>
+<span class="sd">      number of columns in raster</span>
+<span class="sd">    y_size: float</span>
+<span class="sd">      number of rows in raster</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    area_dict: dict</span>
+<span class="sd">       dictionary used as input to mapping.area_def_from_dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">proj_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;proj&quot;</span><span class="p">:</span> <span class="n">proj</span><span class="p">,</span>
+        <span class="s2">&quot;lat_0&quot;</span><span class="p">:</span> <span class="n">lat_0</span><span class="p">,</span>
+        <span class="s2">&quot;lon_0&quot;</span><span class="p">:</span> <span class="n">lon_0</span><span class="p">,</span>
+        <span class="s2">&quot;x_0&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;y_0&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;datum&quot;</span><span class="p">:</span> <span class="s2">&quot;WGS84&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;units&quot;</span><span class="p">:</span> <span class="s2">&quot;m&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;no_defs&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;crs&quot;</span><span class="p">}</span>
+    <span class="c1">#</span>
+    <span class="c1"># find the </span>
+    <span class="c1">#</span>
+    <span class="n">ur_x</span> <span class="o">=</span> <span class="n">ll_x</span> <span class="o">+</span> <span class="n">x_size</span><span class="o">*</span><span class="n">pixel_size_x</span>
+    <span class="n">ur_y</span> <span class="o">=</span> <span class="n">ll_y</span> <span class="o">+</span> <span class="n">y_size</span><span class="o">*</span><span class="n">pixel_size_y</span>
+    <span class="n">area_extent</span> <span class="o">=</span> <span class="p">[</span><span class="n">ll_x</span><span class="p">,</span><span class="n">ll_y</span><span class="p">,</span> <span class="n">ur_x</span><span class="p">,</span> <span class="n">ur_y</span><span class="p">]</span>
+    <span class="n">area_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">area_id</span> <span class="o">=</span> <span class="n">area_id</span><span class="p">,</span>
+                     <span class="n">proj_id</span><span class="o">=</span><span class="n">proj_id</span><span class="p">,</span>
+                     <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span>
+                     <span class="n">proj_dict</span> <span class="o">=</span> <span class="n">proj_dict</span><span class="p">,</span>
+                     <span class="n">x_size</span> <span class="o">=</span> <span class="n">x_size</span><span class="p">,</span>
+                     <span class="n">y_size</span> <span class="o">=</span> <span class="n">y_size</span><span class="p">,</span>
+                     <span class="n">area_extent</span> <span class="o">=</span> <span class="n">area_extent</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">area_dict</span></div>
+
+
+
 <div class="viewcode-block" id="area_def_to_dict"><a class="viewcode-back" href="../../full_listing.html#sat_lib.mapping.area_def_to_dict">[docs]</a><span class="k">def</span> <span class="nf">area_def_to_dict</span><span class="p">(</span><span class="n">area_def</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    given an area_def, save it as a dictionary`</span>
