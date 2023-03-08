@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sat_lib.landsat_read &#8212; A301</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2023Jan29</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#rad-lib-contents">rad_lib contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#sat-lib-contents">sat_lib contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-rad_lib.radiation">read_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#radiation-code">radiation code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#reading-channels-and-variables">reading channels and variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for sat_lib.landsat_read</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pystac_client</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">rasterio.windows</span> <span class="kn">import</span> <span class="n">Window</span>
+
+<div class="viewcode-block" id="get_clear_mask"><a class="viewcode-back" href="../../full_listing.html#sat_lib.landsat_read.get_clear_mask">[docs]</a><span class="k">def</span> <span class="nf">get_clear_mask</span><span class="p">(</span><span class="n">fmask_ds</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    return a DataArray copy of fmask_ds but with the pixel values set to</span>
+<span class="sd">    1 where there is both no cloud and pixel is land, and np.nan where there is cloud</span>
+<span class="sd">    or the pixel is water</span>
+<span class="sd">    </span>
+<span class="sd">    The bit patterns from the HSL QA mask are:</span>
+<span class="sd">     </span>
+<span class="sd">    Bits are listed from the MSB (bit 7) to the LSB (bit 0): </span>
+<span class="sd">    7-6    aerosol:</span>
+<span class="sd">           00 - climatology</span>
+<span class="sd">           01 - low</span>
+<span class="sd">           10 - average</span>
+<span class="sd">           11 - high</span>
+<span class="sd">    5      water</span>
+<span class="sd">    4      snow/ice</span>
+<span class="sd">    3      cloud shadow</span>
+<span class="sd">    2      adjacent to cloud</span>
+<span class="sd">    1      cloud</span>
+<span class="sd">    0      cirrus cloud</span>
+<span class="sd">    </span>
+<span class="sd">    so a bit mask of 0b00100011 when anded with a QA value</span>
+<span class="sd">    will return non-zero when there is water, a cloud, or a cirrus cloud</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    fmask_ds: xarray DataArray</span>
+<span class="sd">       landsat or sentinel hls scene create with rioxarray.open_rasterio</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    clearmask_ds: xarray DataArray</span>
+<span class="sd">      new array with the clear sky mask for each pixel set to 1 if clear, np.nan if water or cloud</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1"># convert float32 to unsigned 8 bit integer</span>
+    <span class="c1">#</span>
+    <span class="n">bit_mask</span> <span class="o">=</span> <span class="n">fmask_ds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">ref_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">bit_mask</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># don&#39;t destroy original fmask DataArray</span>
+    <span class="c1">#</span>
+    <span class="n">clearmask_ds</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">fmask_ds</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># work with unsigned 8 bit values instead of</span>
+    <span class="c1"># base 10 floats</span>
+    <span class="c1">#</span>
+    <span class="n">bit_mask</span> <span class="o">=</span> <span class="n">fmask_ds</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># create a reference mask that will select</span>
+    <span class="c1"># bits 5, 1 and 0, which we want tocheck</span>
+    <span class="c1">#</span>
+    <span class="n">ref_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">bit_mask</span><span class="p">)</span>
+    <span class="n">ref_mask</span><span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="mb">0b00100011</span>  <span class="c1">#find water (bit 5), cloud (bit 1) , cirrus (bit 0)</span>
+    <span class="c1">#</span>
+    <span class="c1"># if all three of those bits are 0, then bitwise_and will return 0</span>
+    <span class="c1"># otherwise it will return either a value greater than 0</span>
+    <span class="c1">#</span>
+    <span class="n">cloudy_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">bitwise_and</span><span class="p">(</span><span class="n">bit_mask</span><span class="p">,</span><span class="n">ref_mask</span><span class="p">)</span>
+    <span class="n">cloudy_values</span><span class="p">[</span><span class="n">cloudy_values</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>  <span class="c1">#cloud or water</span>
+    <span class="n">cloudy_values</span><span class="p">[</span><span class="n">cloudy_values</span><span class="o">==</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span> <span class="c1">#rest of scene</span>
+    <span class="c1">#</span>
+    <span class="c1"># now invert this, writing np.nan where there is </span>
+    <span class="c1"># cloud or water.  Go back to float32 so we can use np.nan</span>
+    <span class="c1">#</span>
+    <span class="n">clear_mask</span> <span class="o">=</span> <span class="n">cloudy_values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">clear_mask</span><span class="p">[</span><span class="n">cloudy_values</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">clear_mask</span><span class="p">[</span><span class="n">cloudy_values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">clearmask_ds</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">clear_mask</span>
+    <span class="k">return</span> <span class="n">clearmask_ds</span></div>
+
+
+<div class="viewcode-block" id="get_landsat_scene"><a class="viewcode-back" href="../../full_listing.html#sat_lib.landsat_read.get_landsat_scene">[docs]</a><span class="k">def</span> <span class="nf">get_landsat_scene</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">window</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    retrieve windowed band4, band5 and Fmask for a given day and save</span>
+<span class="sd">    the clipped geotiffs into three DataArrays, returned</span>
+<span class="sd">    in a dictionary</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">    date: str</span>
+<span class="sd">       date in the form yyy-mm-yy</span>
+<span class="sd">    lon: float</span>
+<span class="sd">       longitude of point in the scene (degrees E)</span>
+<span class="sd">    lat: </span>
+<span class="sd">        latitude of point in the scene (degrees N)</span>
+<span class="sd">    window: rasterio.Window</span>
+<span class="sd">        window for clipping the scene to a subscene</span>
+<span class="sd">  </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out_dict: dict</span>
+<span class="sd">       dictionary with three xarray DataArraysband4, band5, Fmask: rioxarrays with the data</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1">#</span>
+    <span class="c1"># set up the search -- we are looking for only 1 scene per date</span>
+    <span class="c1">#</span>
+    <span class="n">the_point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+    <span class="n">cmr_api_url</span> <span class="o">=</span> <span class="s2">&quot;https://cmr.earthdata.nasa.gov/stac/LPCLOUD&quot;</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cmr_api_url</span><span class="p">)</span>
+    
+    <span class="n">search</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+        <span class="n">collections</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HLSL30.v2.0&quot;</span><span class="p">],</span>
+        <span class="n">intersects</span><span class="o">=</span><span class="n">the_point</span><span class="p">,</span>
+        <span class="n">datetime</span><span class="o">=</span> <span class="n">date</span>
+    <span class="p">)</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">get_all_items</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="s2"> item&quot;</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># get the metadata and add date, cloud_cover and band_name to the new DataArrays</span>
+    <span class="c1">#</span>
+    <span class="n">props</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">properties</span>
+    <span class="n">out_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">chan_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B04&#39;</span><span class="p">,</span><span class="s1">&#39;B05&#39;</span><span class="p">,</span><span class="s1">&#39;Fmask&#39;</span><span class="p">]</span>
+    <span class="n">array_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b4_ds&#39;</span><span class="p">,</span><span class="s1">&#39;b5_ds&#39;</span><span class="p">,</span><span class="s1">&#39;fmask_ds&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">chan</span><span class="p">,</span><span class="n">array_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">chan_names</span><span class="p">,</span> <span class="n">array_names</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;inside get_landsat_scene: reading </span><span class="si">{</span><span class="n">chan</span><span class="si">}</span><span class="s2"> into </span><span class="si">{</span><span class="n">array_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">href</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">assets</span><span class="p">[</span><span class="n">chan</span><span class="p">]</span><span class="o">.</span><span class="n">href</span>
+        <span class="n">lazy_ds</span> <span class="o">=</span> <span class="n">rioxarray</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span><span class="n">href</span><span class="p">,</span><span class="n">mask_and_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1">#</span>
+        <span class="c1"># now read the window</span>
+        <span class="c1">#</span>
+        <span class="n">clipped_ds</span> <span class="o">=</span> <span class="n">lazy_ds</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">isel_window</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+        <span class="c1">#</span>
+        <span class="c1"># add some custom attributes</span>
+        <span class="c1">#</span>
+        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="c1">#date and time</span>
+        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;cloud_cover&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;eo:cloud_cover&#39;</span><span class="p">]</span>
+        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;band_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chan</span>
+        <span class="n">utm_zone</span> <span class="o">=</span> <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;HORIZONTAL_CS_NAME&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;cartopy_epsg_code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">find_epsg_code</span><span class="p">(</span><span class="n">utm_zone</span><span class="p">)</span>
+        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1">#yyyy-mm-dd</span>
+        <span class="n">out_dict</span><span class="p">[</span><span class="n">array_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">clipped_ds</span>
+    <span class="c1">#</span>
+    <span class="c1"># convert the mask to 1=no cloud over land, np.nan=otherwise</span>
+    <span class="c1">#</span>
+    <span class="n">out_dict</span><span class="p">[</span><span class="s1">&#39;fmask_ds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_clear_mask</span><span class="p">(</span><span class="n">out_dict</span><span class="p">[</span><span class="s1">&#39;fmask_ds&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">out_dict</span></div>
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, phaustin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

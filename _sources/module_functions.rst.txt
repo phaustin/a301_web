@@ -55,5 +55,9 @@ sat_lib contents
    calcScaleHeight
    calcDensHeight
 
-      
-   
+.. autosummary:: sat_lib.landsat_read
+   :recursive:
+
+   get_clear_mask
+   get_landsat_scene
+

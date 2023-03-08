@@ -276,7 +276,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;area_id&#39;</span><span class="p">,</span><span class="s1">&#39;proj_id&#39;</span><span class="p">,</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;proj_dict&#39;</span><span class="p">,</span><span class="s1">&#39;x_size&#39;</span><span class="p">,</span><span class="s1">&#39;y_size&#39;</span><span class="p">,</span><span class="s1">&#39;area_extent&#39;</span><span class="p">]</span>    
-    <span class="n">arglist</span><span class="o">=</span><span class="p">[</span><span class="n">area_def_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
+    <span class="n">arglist</span><span class="o">=</span><span class="p">[</span><span class="n">area_def_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="s1">&#39;unknown&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
     <span class="n">area_def</span><span class="o">=</span><span class="n">geometry</span><span class="o">.</span><span class="n">AreaDefinition</span><span class="p">(</span><span class="o">*</span><span class="n">arglist</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">area_def</span></div>
 </pre></div>

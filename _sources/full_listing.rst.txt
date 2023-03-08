@@ -23,6 +23,8 @@ sat_lib module
 .. automodule:: sat_lib.thermo
    :members:
    
+.. automodule:: sat_lib.landsat_read
+   :members:
 
 sat_lib module attributes
 -------------------------

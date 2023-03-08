@@ -167,6 +167,7 @@
     <span class="n">thechan_scale</span> <span class="o">=</span> <span class="n">scales</span><span class="p">[</span><span class="n">thechan_index</span><span class="p">]</span>
     <span class="n">thechan_offset</span> <span class="o">=</span> <span class="n">offsets</span><span class="p">[</span><span class="n">thechan_index</span><span class="p">]</span>
     <span class="n">thechan_calibrated</span> <span class="o">=</span> <span class="p">(</span><span class="n">thechan_data</span> <span class="o">-</span> <span class="n">thechan_offset</span><span class="p">)</span> <span class="o">*</span> <span class="n">thechan_scale</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;f</span><span class="si">{</span><span class="n">thechan_offset</span><span class="si">=}</span><span class="s2">, </span><span class="si">{</span><span class="n">thechan_scale</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">sd_file</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">thechan_calibrated</span></div>
 
