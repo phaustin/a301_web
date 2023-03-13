@@ -248,7 +248,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">hdf_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;can&#39;t find file </span><span class="si">{</span><span class="n">hdf_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">sd_file</span> <span class="o">=</span> <span class="n">SD</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">the_file</span><span class="p">),</span> <span class="n">SDC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;opened file: </span><span class="si">{</span><span class="n">the_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sd_open -- file: </span><span class="si">{</span><span class="n">the_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;need a str or path got </span><span class="si">{</span><span class="n">the_file</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="c1">#</span>

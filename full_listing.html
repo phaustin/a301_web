@@ -492,6 +492,13 @@ characteristics</p>
 </dd></dl>
 
 <span class="target" id="module-sat_lib.landsat_read"></span><dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.landsat_read.find_epsg_code">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.landsat_read.</span></span><span class="sig-name descname"><span class="pre">find_epsg_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">utm_zone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">south</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/landsat_read.html#find_epsg_code"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.landsat_read.find_epsg_code" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://gis.stackexchange.com/questions/365584/convert-utm-zone-into-epsg-code">https://gis.stackexchange.com/questions/365584/convert-utm-zone-into-epsg-code</a></p>
+<p>cartopy wants crs names as epsg codes, i.e. UTM zone 10N is EPSG:32610, 10S is EPSG:32710</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="sat_lib.landsat_read.get_clear_mask">
 <span class="sig-prename descclassname"><span class="pre">sat_lib.landsat_read.</span></span><span class="sig-name descname"><span class="pre">get_clear_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmask_ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/landsat_read.html#get_clear_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.landsat_read.get_clear_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a DataArray copy of fmask_ds but with the pixel values set to
@@ -523,6 +530,30 @@ will return non-zero when there is water, a cloud, or a cirrus cloud</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>xarray DataArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.landsat_read.get_landsat_dataset">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.landsat_read.</span></span><span class="sig-name descname"><span class="pre">get_landsat_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/landsat_read.html#get_landsat_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.landsat_read.get_landsat_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>retrieve windowed band4, band5 and Fmask for a given day and save
+the clipped geotiffs into three DataArrays, returned
+in a dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>str</em>) – date in the form yyy-mm-yy</p></li>
+<li><p><strong>lon</strong> (<em>float</em>) – longitude of point in the scene (degrees E)</p></li>
+<li><p><strong>lat</strong> – latitude of point in the scene (degrees N)</p></li>
+<li><p><strong>window</strong> (<em>rasterio.Window</em>) – window for clipping the scene to a subscene</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out_dict</strong> – dictionary with three xarray DataArraysband4, band5, Fmask: rioxarrays with the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
