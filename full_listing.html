@@ -539,7 +539,7 @@ will return non-zero when there is water, a cloud, or a cirrus cloud</p>
 <span class="sig-prename descclassname"><span class="pre">sat_lib.landsat_read.</span></span><span class="sig-name descname"><span class="pre">get_landsat_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/landsat_read.html#get_landsat_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.landsat_read.get_landsat_dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p>retrieve windowed band4, band5 and Fmask for a given day and save
 the clipped geotiffs into three DataArrays, returned
-in a dictionary</p>
+in an xarray Dataset</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -550,10 +550,10 @@ in a dictionary</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>out_dict</strong> – dictionary with three xarray DataArraysband4, band5, Fmask: rioxarrays with the data</p>
+<dd class="field-even"><p><strong>the_dataset</strong> – dataset with rioxarrays of requested bands plus Fmask</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p>xarray.Dataset</p>
 </dd>
 </dl>
 </dd></dl>
