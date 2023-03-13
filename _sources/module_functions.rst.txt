@@ -64,4 +64,9 @@ sat_lib contents
    get_landsat_scene
    get_landsat_dataset
    
+.. autosummary:: sat_lib.utils.marshall_palmer
+   :recursive:
 
+   marshall_dist
+   main
+   

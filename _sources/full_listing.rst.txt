@@ -26,6 +26,10 @@ sat_lib module
 .. automodule:: sat_lib.landsat_read
    :members:
 
+.. automodule:: sat_lib.utils
+   :members:
+
+      
 sat_lib module attributes
 -------------------------
       
