@@ -232,7 +232,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    out_dict: dict</span>
-<span class="sd">       dictionary with three xarray DataArraysband4, band5, Fmask: rioxarrays with the data</span>
+<span class="sd">       dictionary with three rioxarray DataArrays: band4, band5, Fmask</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1">#</span>
     <span class="c1"># set up the search -- we are looking for only 1 scene per date</span>
@@ -283,81 +283,6 @@
     <span class="n">out_dict</span><span class="p">[</span><span class="s1">&#39;fmask_ds&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_clear_mask</span><span class="p">(</span><span class="n">out_dict</span><span class="p">[</span><span class="s1">&#39;fmask_ds&#39;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">out_dict</span></div>
 
-
-<span class="k">def</span> <span class="nf">get_landsat_dataset</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span><span class="n">bands</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    retrieve windowed band4, band5 and Fmask for a given day and save</span>
-<span class="sd">    the clipped geotiffs into three DataArrays, returned</span>
-<span class="sd">    in a dictionary</span>
-<span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    </span>
-<span class="sd">    date: str</span>
-<span class="sd">       date in the form yyy-mm-yy</span>
-<span class="sd">    lon: float</span>
-<span class="sd">       longitude of point in the scene (degrees E)</span>
-<span class="sd">    lat: </span>
-<span class="sd">        latitude of point in the scene (degrees N)</span>
-<span class="sd">    window: rasterio.Window</span>
-<span class="sd">        window for clipping the scene to a subscene</span>
-<span class="sd">    bands: list, optional</span>
-<span class="sd">        list of bands to read in, in the form [&#39;B01&#39;,&#39;B02&#39;,...]</span>
-<span class="sd">        Fmask is read in in addition to the radiometer bands</span>
-<span class="sd">        default: [&#39;B04&#39;,&#39;B05&#39;,&#39;B05&#39;]</span>
-<span class="sd">  </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    out_dict: dict</span>
-<span class="sd">       dictionary with three xarray DataArraysband4, band5, Fmask: rioxarrays with the data</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1">#</span>
-    <span class="c1"># set up the search -- we are looking for only 1 scene per date</span>
-    <span class="c1">#</span>
-    <span class="k">if</span> <span class="n">bands</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">bands</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;B04&#39;</span><span class="p">,</span><span class="s1">&#39;B05&#39;</span><span class="p">,</span><span class="s1">&#39;B06&#39;</span><span class="p">]</span>
-    <span class="n">the_point</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
-    <span class="n">cmr_api_url</span> <span class="o">=</span> <span class="s2">&quot;https://cmr.earthdata.nasa.gov/stac/LPCLOUD&quot;</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">cmr_api_url</span><span class="p">)</span>
-    
-    <span class="n">search</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
-        <span class="n">collections</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;HLSL30.v2.0&quot;</span><span class="p">],</span>
-        <span class="n">intersects</span><span class="o">=</span><span class="n">the_point</span><span class="p">,</span>
-        <span class="n">datetime</span><span class="o">=</span> <span class="n">date</span>
-    <span class="p">)</span>
-    <span class="n">items</span> <span class="o">=</span> <span class="n">search</span><span class="o">.</span><span class="n">get_all_items</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;found </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="s2"> item&quot;</span><span class="p">)</span>
-    <span class="c1">#</span>
-    <span class="c1"># get the metadata and add date, cloud_cover and band_name to the new DataArrays</span>
-    <span class="c1">#</span>
-    <span class="n">props</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">properties</span>
-    <span class="n">band_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;B04&#39;</span><span class="p">,</span><span class="s1">&#39;B05&#39;</span><span class="p">,</span><span class="s1">&#39;Fmask&#39;</span><span class="p">]</span>
-    <span class="n">array_dict</span><span class="o">=</span><span class="p">{}</span>
-    <span class="k">for</span> <span class="n">band_name</span> <span class="ow">in</span> <span class="n">bands</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;inside get_landsat_scene: reading </span><span class="si">{</span><span class="n">band_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="n">href</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">assets</span><span class="p">[</span><span class="n">band_name</span><span class="p">]</span><span class="o">.</span><span class="n">href</span>
-        <span class="n">lazy_ds</span> <span class="o">=</span> <span class="n">rioxarray</span><span class="o">.</span><span class="n">open_rasterio</span><span class="p">(</span><span class="n">href</span><span class="p">,</span><span class="n">mask_and_scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="c1">#</span>
-        <span class="c1"># now read the window</span>
-        <span class="c1">#</span>
-        <span class="n">clipped_ds</span> <span class="o">=</span> <span class="n">lazy_ds</span><span class="o">.</span><span class="n">rio</span><span class="o">.</span><span class="n">isel_window</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
-        <span class="c1">#</span>
-        <span class="c1"># add some custom attributes</span>
-        <span class="c1">#</span>
-        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">]</span> <span class="c1">#date and time</span>
-        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;cloud_cover&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">props</span><span class="p">[</span><span class="s1">&#39;eo:cloud_cover&#39;</span><span class="p">]</span>
-        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;band_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">band</span>
-        <span class="n">utm_zone</span> <span class="o">=</span> <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;HORIZONTAL_CS_NAME&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">lat</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">is_southern</span><span class="o">=</span><span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">is_southern</span><span class="o">=</span><span class="kc">False</span>
-        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;cartopy_epsg_code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">find_epsg_code</span><span class="p">(</span><span class="n">utm_zone</span><span class="p">,</span><span class="n">south</span><span class="o">=</span><span class="n">is_southern</span><span class="p">)</span>
-        <span class="n">clipped_ds</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">props</span><span class="p">[</span><span class="s1">&#39;datetime&#39;</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>  <span class="c1">#yyyy-mm-dd</span>
-        <span class="n">array_dict</span><span class="p">[</span><span class="n">band_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">],</span><span class="n">clipped_ds</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">the_dataset</span>
-
-
 <div class="viewcode-block" id="get_landsat_dataset"><a class="viewcode-back" href="../../full_listing.html#sat_lib.landsat_read.get_landsat_dataset">[docs]</a><span class="k">def</span> <span class="nf">get_landsat_dataset</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">bands</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    retrieve windowed band4, band5 and Fmask for a given day and save</span>
@@ -375,6 +300,8 @@
 <span class="sd">        latitude of point in the scene (degrees N)</span>
 <span class="sd">    window: rasterio.Window</span>
 <span class="sd">        window for clipping the scene to a subscene</span>
+<span class="sd">    bands: list</span>
+<span class="sd">        list of bands in the form</span>
 <span class="sd">  </span>
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>

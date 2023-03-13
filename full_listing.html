@@ -547,6 +547,7 @@ in an xarray Dataset</p>
 <li><p><strong>lon</strong> (<em>float</em>) – longitude of point in the scene (degrees E)</p></li>
 <li><p><strong>lat</strong> – latitude of point in the scene (degrees N)</p></li>
 <li><p><strong>window</strong> (<em>rasterio.Window</em>) – window for clipping the scene to a subscene</p></li>
+<li><p><strong>bands</strong> (<em>list</em>) – list of bands in the form</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -574,7 +575,7 @@ in a dictionary</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>out_dict</strong> – dictionary with three xarray DataArraysband4, band5, Fmask: rioxarrays with the data</p>
+<dd class="field-even"><p><strong>out_dict</strong> – dictionary with three rioxarray DataArrays: band4, band5, Fmask</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>dict</p>
