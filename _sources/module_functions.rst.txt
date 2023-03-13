@@ -62,6 +62,6 @@ sat_lib contents
 
    get_clear_mask
    get_landsat_scene
-   get_landsat_datasets
+   get_landsat_dataset
    
 
