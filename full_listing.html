@@ -537,8 +537,8 @@ will return non-zero when there is water, a cloud, or a cirrus cloud</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="sat_lib.landsat_read.get_landsat_dataset">
 <span class="sig-prename descclassname"><span class="pre">sat_lib.landsat_read.</span></span><span class="sig-name descname"><span class="pre">get_landsat_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bands</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/landsat_read.html#get_landsat_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.landsat_read.get_landsat_dataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>retrieve windowed band4, band5 and Fmask for a given day and save
-the clipped geotiffs into three DataArrays, returned
+<dd><p>retrieve windowed bands specified in the bands variable.
+Save the clipped geotiffs as xarray.DattArrays, returned
 in an xarray Dataset</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -593,6 +593,43 @@ in a dictionary</p>
 </dd>
 </dl>
 <p>output: n(Dvec), length of Dvec, in m^{-3} mm^{-1}</p>
+</dd></dl>
+
+<span class="target" id="module-sat_lib.cloudsat"></span><dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.cloudsat.get_geo">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.cloudsat.</span></span><span class="sig-name descname"><span class="pre">get_geo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hdfname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/cloudsat.html#get_geo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.cloudsat.get_geo" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the name of any hdf file from the Cloudsat data archive
+return lat,lon,time_vals,prof_times,dem_elevation
+for the cloudsat orbital swath</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>hdfname</strong> (<em>str</em><em> or </em><em>Path object</em>) – full path to the hdf4 file  <a class="reference external" href="http://www.cloudsat.cira.colostate.edu/dataSpecs.php">http://www.cloudsat.cira.colostate.edu/dataSpecs.php</a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>the_data</strong> – lat  – profile latitude in degrees east  (1-D vector)
+lon  – profile longitude in degrees north (1-D vector)
+time_vals – profile times in UTC  (1D vector)
+prof_times – profile times in seconds since beginning of orbit (1D vector)
+dem_elevation – surface elevation in meters</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>xarray Datset with the following DataArrays</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sat_lib.cloudsat.read_cloudsat_var">
+<span class="sig-prename descclassname"><span class="pre">sat_lib.cloudsat.</span></span><span class="sig-name descname"><span class="pre">read_cloudsat_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">varname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sat_lib/cloudsat.html#read_cloudsat_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sat_lib.cloudsat.read_cloudsat_var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a variable name and a file name, return a cloudsat dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>varname</strong> (<em>str</em>) – name of cloudsat variable</p></li>
+<li><p><strong>filename</strong> (<em>str</em><em> or </em><em>Path object</em>) – path to the cloudsat haf file</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <section id="module-sat_lib.modis_chans">

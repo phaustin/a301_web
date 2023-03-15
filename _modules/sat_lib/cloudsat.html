@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sat_lib.cloudsat &#8212; A301</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          Home</a>
+        <span class="navbar-text navbar-version pull-left"><b>2023Jan29</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#rad-lib-contents">rad_lib contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../module_functions.html#sat-lib-contents">sat_lib contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-rad_lib.radiation">read_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#radiation-code">radiation code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modismeta_read">sat_lib module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#reading-metadata">reading metadata</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#reading-channels-and-variables">reading channels and variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../full_listing.html#module-sat_lib.modis_chans">sat_lib module attributes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_functions.html">Module functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../full_listing.html">Full module listing</a></li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for sat_lib.cloudsat</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pyhdf.SD</span>
+<span class="kn">from</span> <span class="nn">pyhdf</span> <span class="kn">import</span> <span class="n">VS</span>
+<span class="kn">import</span> <span class="nn">pyhdf</span>
+<span class="kn">import</span> <span class="nn">pyhdf.HDF</span> <span class="k">as</span> <span class="nn">HDF</span>
+<span class="kn">from</span> <span class="nn">.modischan_read</span> <span class="kn">import</span> <span class="n">sd_open_file</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">xarray</span> <span class="kn">import</span> <span class="n">DataArray</span><span class="p">,</span><span class="n">Dataset</span>
+<span class="kn">import</span> <span class="nn">pyproj</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">dateutil.tz</span> <span class="k">as</span> <span class="nn">tz</span>
+
+<div class="viewcode-block" id="get_geo"><a class="viewcode-back" href="../../full_listing.html#sat_lib.cloudsat.get_geo">[docs]</a><span class="k">def</span> <span class="nf">get_geo</span><span class="p">(</span><span class="n">hdfname</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    given the name of any hdf file from the Cloudsat data archive</span>
+<span class="sd">    return lat,lon,time_vals,prof_times,dem_elevation</span>
+<span class="sd">    for the cloudsat orbital swath</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    </span>
+<span class="sd">    hdfname:  str or Path object</span>
+<span class="sd">       full path to the hdf4 file  http://www.cloudsat.cira.colostate.edu/dataSpecs.php</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    the_data: xarray Datset with the following DataArrays</span>
+
+<span class="sd">       lat  -- profile latitude in degrees east  (1-D vector)</span>
+<span class="sd">       lon  -- profile longitude in degrees north (1-D vector)</span>
+<span class="sd">       time_vals -- profile times in UTC  (1D vector)</span>
+<span class="sd">       prof_times -- profile times in seconds since beginning of orbit (1D vector)</span>
+<span class="sd">       dem_elevation -- surface elevation in meters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">hdfname</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">hdfname</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="n">hdfname</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">hdfname</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;in get_geo </span><span class="si">{</span><span class="n">hdfname</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">hdffile</span><span class="o">=</span><span class="n">HDF</span><span class="o">.</span><span class="n">HDF</span><span class="p">(</span><span class="n">hdfname</span><span class="p">,</span><span class="n">HDF</span><span class="o">.</span><span class="n">HC</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span>
+    <span class="n">vs</span><span class="o">=</span><span class="n">hdffile</span><span class="o">.</span><span class="n">vstart</span><span class="p">()</span>
+    <span class="n">out</span><span class="o">=</span><span class="n">vs</span><span class="o">.</span><span class="n">vdatainfo</span><span class="p">()</span>
+    <span class="c1">#uncomment this line to see the variable names</span>
+    <span class="c1"># print(&quot;VS variable names: &quot;,out)</span>
+    <span class="n">old_variable_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span><span class="s1">&#39;Profile_time&#39;</span><span class="p">,</span><span class="s1">&#39;DEM_elevation&#39;</span><span class="p">]</span>
+    <span class="n">new_variable_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span><span class="s1">&#39;profile_time&#39;</span><span class="p">,</span><span class="s1">&#39;dem_elevation&#39;</span><span class="p">]</span>
+    <span class="n">var_dict</span><span class="o">=</span><span class="p">{}</span>
+    <span class="c1">#</span>
+    <span class="c1"># save the variables and conver names to lower case</span>
+    <span class="c1">#</span>
+    <span class="k">for</span> <span class="n">old_var_name</span><span class="p">,</span><span class="n">new_var_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">old_variable_names</span><span class="p">,</span><span class="n">new_variable_names</span><span class="p">):</span>
+        <span class="n">the_var</span><span class="o">=</span><span class="n">vs</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">old_var_name</span><span class="p">)</span>
+        <span class="n">nrecs</span><span class="o">=</span><span class="n">the_var</span><span class="o">.</span><span class="n">_nrecs</span>
+        <span class="n">the_data</span><span class="o">=</span><span class="n">the_var</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nRec</span><span class="o">=</span><span class="n">nrecs</span><span class="p">)</span>
+        <span class="n">the_data</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">the_data</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="n">var_dict</span><span class="p">[</span><span class="n">new_var_name</span><span class="p">]</span><span class="o">=</span><span class="n">the_data</span>
+        <span class="n">the_var</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+    <span class="n">tai_start</span><span class="o">=</span><span class="n">vs</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s1">&#39;TAI_start&#39;</span><span class="p">)</span>
+    <span class="n">nrecs</span><span class="o">=</span><span class="n">tai_start</span><span class="o">.</span><span class="n">_nrecs</span>
+    <span class="n">tai_start_value</span><span class="o">=</span><span class="n">tai_start</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">nRec</span><span class="o">=</span><span class="n">nrecs</span><span class="p">)</span>
+    <span class="n">tai_start</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+    <span class="n">hdffile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="c1">#</span>
+    <span class="c1">#tai_start is the number of seconds since Jan 1, 1993 that the orbit</span>
+    <span class="c1"># began</span>
+    <span class="c1">#</span>
+    <span class="n">taiDelta</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">tai_start_value</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">taiDayOne</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">1993</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">tz</span><span class="o">.</span><span class="n">tzutc</span><span class="p">())</span>
+    <span class="c1">#this is the start time of the orbit in seconds since Jan 1, 1993</span>
+    <span class="n">orbitStart</span><span class="o">=</span><span class="n">taiDayOne</span> <span class="o">+</span> <span class="n">taiDelta</span>
+    <span class="n">time_vals</span><span class="o">=</span><span class="p">[]</span>
+    <span class="c1">#now loop throught he radar profile times and convert them to </span>
+    <span class="c1">#python datetime objects in utc</span>
+    <span class="k">for</span> <span class="n">the_time</span> <span class="ow">in</span> <span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;profile_time&#39;</span><span class="p">]:</span>
+        <span class="n">time_vals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">orbitStart</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">the_time</span><span class="p">)))</span>
+    <span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;time_vals&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">time_vals</span>
+    <span class="n">neg_values</span><span class="o">=</span><span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;dem_elevation&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span>
+    <span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;dem_elevation&#39;</span><span class="p">][</span><span class="n">neg_values</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="c1">#</span>
+    <span class="c1"># great circle distance</span>
+    <span class="c1">#</span>
+    <span class="n">great_circle</span><span class="o">=</span><span class="n">pyproj</span><span class="o">.</span><span class="n">Geod</span><span class="p">(</span><span class="n">ellps</span><span class="o">=</span><span class="s1">&#39;WGS84&#39;</span><span class="p">)</span>
+    <span class="n">distance</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">lons</span><span class="p">,</span> <span class="n">lats</span> <span class="o">=</span> <span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">],</span> <span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>
+    <span class="n">start</span><span class="o">=</span><span class="p">(</span><span class="n">lons</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">lats</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">meters2km</span> <span class="o">=</span> <span class="mf">1.e-3</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">])):</span>
+        <span class="n">azi12</span><span class="p">,</span><span class="n">azi21</span><span class="p">,</span><span class="n">step</span><span class="o">=</span> \
+            <span class="n">great_circle</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">lons</span><span class="p">[</span><span class="n">index</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">lats</span><span class="p">[</span><span class="n">index</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">lons</span><span class="p">[</span><span class="n">index</span><span class="p">],</span><span class="n">lats</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>   
+        <span class="n">distance</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">distance</span><span class="p">[</span><span class="n">index</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">step</span><span class="p">)</span>
+    <span class="n">distance</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span><span class="o">*</span><span class="n">meters2km</span>
+    <span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;distance_km&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">distance</span>
+    <span class="c1">#</span>
+    <span class="c1"># write the dataset</span>
+    <span class="c1"># </span>
+    <span class="n">x_dict</span><span class="o">=</span><span class="p">{}</span>
+    <span class="n">variable_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="s1">&#39;profile_time&#39;</span><span class="p">,</span><span class="s1">&#39;dem_elevation&#39;</span><span class="p">,</span><span class="s1">&#39;distance_km&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">var_name</span><span class="p">,</span><span class="n">var_data</span> <span class="ow">in</span> <span class="n">var_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">x_dict</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;time&#39;</span><span class="p">],</span><span class="n">var_data</span><span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># get the height array if it exists</span>
+    <span class="c1">#  </span>
+    <span class="n">hdf_SD</span> <span class="o">=</span> <span class="n">sd_open_file</span><span class="p">(</span><span class="n">hdfname</span><span class="p">)</span>
+    <span class="n">var_sd</span><span class="o">=</span><span class="n">hdf_SD</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;Height&#39;</span><span class="p">)</span>
+    <span class="n">var_vals</span><span class="o">=</span><span class="n">var_sd</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="n">height_array</span> <span class="o">=</span><span class="n">var_vals</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">hdf_SD</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+    <span class="n">x_dict</span><span class="p">[</span><span class="s1">&#39;full_heights&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;time&#39;</span><span class="p">,</span><span class="s1">&#39;height&#39;</span><span class="p">],</span><span class="n">height_array</span><span class="p">)</span>
+    <span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:([</span><span class="s1">&#39;time&#39;</span><span class="p">],</span><span class="n">var_dict</span><span class="p">[</span><span class="s1">&#39;time_vals&#39;</span><span class="p">]),</span>
+            <span class="s1">&#39;height&#39;</span><span class="p">:([</span><span class="s1">&#39;height&#39;</span><span class="p">],</span><span class="n">height_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,:])}</span>
+    <span class="n">the_data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">data_vars</span><span class="o">=</span><span class="n">x_dict</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="n">coords</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">the_data</span></div>
+
+<div class="viewcode-block" id="read_cloudsat_var"><a class="viewcode-back" href="../../full_listing.html#sat_lib.cloudsat.read_cloudsat_var">[docs]</a><span class="k">def</span> <span class="nf">read_cloudsat_var</span><span class="p">(</span><span class="n">varname</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given a variable name and a file name, return a cloudsat dataset</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    varname: str</span>
+<span class="sd">       name of cloudsat variable</span>
+
+<span class="sd">    filename: str or Path object</span>
+<span class="sd">       path to the cloudsat haf file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">the_data</span> <span class="o">=</span> <span class="n">get_geo</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">hdf_SD</span> <span class="o">=</span> <span class="n">sd_open_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;in read_cloudsat_var, reading </span><span class="si">{</span><span class="n">varname</span><span class="si">=}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">var_sd</span><span class="o">=</span><span class="n">hdf_SD</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">varname</span><span class="p">)</span>
+    <span class="n">var_vals</span><span class="o">=</span><span class="n">var_sd</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">fill_value</span><span class="o">=</span><span class="n">var_sd</span><span class="o">.</span><span class="n">attributes</span><span class="p">()[</span><span class="s2">&quot;_FillValue&quot;</span><span class="p">]</span>
+        <span class="n">missing_vals</span> <span class="o">=</span> <span class="n">var_vals</span> <span class="o">==</span> <span class="n">fill_value</span>
+        <span class="n">var_vals</span> <span class="o">=</span><span class="n">var_vals</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="n">var_vals</span><span class="p">[</span><span class="n">missing_vals</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">var_vals</span> <span class="o">=</span><span class="n">var_vals</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">hdf_SD</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+    <span class="n">scale_factor</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">new_name</span> <span class="o">=</span> <span class="n">varname</span>
+    <span class="k">if</span> <span class="n">varname</span> <span class="o">==</span> <span class="s1">&#39;Radar_Reflectivity&#39;</span><span class="p">:</span>
+        <span class="c1"># https://www.cloudsat.cira.colostate.edu/data-products/2b-geoprof</span>
+        <span class="n">scale_factor</span> <span class="o">=</span> <span class="mf">0.001</span>
+        <span class="n">var_vals</span> <span class="o">=</span> <span class="n">var_vals</span><span class="o">*</span><span class="n">scale_factor</span>
+        <span class="n">var_array</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">var_vals</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span><span class="s1">&#39;height&#39;</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">varname</span> <span class="o">==</span> <span class="s1">&#39;LayerTop&#39;</span><span class="p">:</span>
+        <span class="n">var_vals</span><span class="p">[</span><span class="n">var_vals</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+        <span class="c1">#</span>
+        <span class="c1"># 5 nray values, take the first 1</span>
+        <span class="c1">#</span>
+        <span class="n">var_value</span> <span class="o">=</span> <span class="n">var_vals</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> 
+        <span class="n">var_array</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">var_value</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">var_array</span> <span class="o">=</span> <span class="n">DataArray</span><span class="p">(</span><span class="n">var_vals</span><span class="p">,</span><span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+    <span class="n">the_data</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="o">=</span> <span class="n">var_array</span>
+    <span class="k">return</span> <span class="n">the_data</span></div>
+    
+    
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2023, phaustin.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

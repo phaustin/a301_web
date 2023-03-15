@@ -70,3 +70,5 @@ sat_lib contents
    marshall_dist
    plot_marshall
    
+.. autosummary:: sat_lib.cloudsat
+   :recursive:

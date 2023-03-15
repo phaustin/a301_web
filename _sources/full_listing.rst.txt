@@ -29,6 +29,9 @@ sat_lib module
 .. automodule:: sat_lib.utils.marshall_palmer
    :members:
 
+.. automodule:: sat_lib.cloudsat
+   :members:
+      
       
 sat_lib module attributes
 -------------------------

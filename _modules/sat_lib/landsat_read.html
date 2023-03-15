@@ -285,8 +285,8 @@
 
 <div class="viewcode-block" id="get_landsat_dataset"><a class="viewcode-back" href="../../full_listing.html#sat_lib.landsat_read.get_landsat_dataset">[docs]</a><span class="k">def</span> <span class="nf">get_landsat_dataset</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">bands</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    retrieve windowed band4, band5 and Fmask for a given day and save</span>
-<span class="sd">    the clipped geotiffs into three DataArrays, returned</span>
+<span class="sd">    retrieve windowed bands specified in the bands variable.</span>
+<span class="sd">    Save the clipped geotiffs as xarray.DattArrays, returned</span>
 <span class="sd">    in an xarray Dataset</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
